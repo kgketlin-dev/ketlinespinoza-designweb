@@ -572,14 +572,13 @@ h1,h2,h3,h4{margin:0}
   });
 })();
 
-/* Hotjar: carrega só depois da primeira interação (ou 6s), pra não pesar no carregamento */
+/* Hotjar: carrega só quando a pessoa interage (mouse, toque, teclado), pra não pesar no carregamento */
 (function(){
   var ok=false;
   function hj(){if(ok)return;ok=true;
     (function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:4945492,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r)})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   }
-  ['scroll','pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,hj,{once:true,passive:true})});
-  addEventListener('load',function(){setTimeout(hj,6000)});
+  ['pointermove','pointerdown','keydown','touchstart','wheel'].forEach(function(e){addEventListener(e,hj,{once:true,passive:true})});
 })();
 </script>
 </body>
