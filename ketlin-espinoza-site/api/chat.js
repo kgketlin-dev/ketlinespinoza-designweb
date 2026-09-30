@@ -92,7 +92,7 @@ async function gerar(model, key, contents, semEsquema) {
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
-  const modelos = [process.env.GEMINI_MODEL, "gemini-3.8-flash", "gemini-flash-latest", "gemini-flash-lite-latest"].filter((m, i, a) => m && a.indexOf(m) === i);
+  const modelos = [process.env.GEMINI_MODEL, "gemini-flash-lite-latest", "gemini-3.8-flash", "gemini-flash-latest"].filter((m, i, a) => m && a.indexOf(m) === i);
 
   // Diagnóstico: abra /api/chat no navegador. Não mostra a chave.
   if (req.method === "GET") {
