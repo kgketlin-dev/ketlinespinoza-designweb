@@ -3171,7 +3171,10 @@
         const STAGE = { 2: "Detalhes", 3: "Identidade visual", 4: "Seus dados", 5: "Valor e confirmação" };
         const has = (kind) => [...sel.keys()].some((n) => item(n).kind === kind);
         const onlySites = () => sel.size && [...sel.keys()].every((n) => item(n).kind === "site");
-        const needsQty = () => [...sel.keys()].some((n) => item(n).unit);
+        const qtyKnown = new Set();
+        let redo = false;
+        const unitItems = () => [...sel.keys()].filter((n) => item(n).unit);
+        const needsQty = () => unitItems().some((n) => !qtyKnown.has(n));
         const first = () => esc((ans.nome || "").trim().split(" ")[0]);
 
         /* ---------- Valores ---------- */
@@ -3204,7 +3207,7 @@
 
         /* ---------- Roteiro ---------- */
         const Q = [
-          { key: "descricao", stage: 2, type: "text", multi: true, min: 12, max: 2000, label: "Descrição", err: "Me conta um pouco mais sobre o que você precisa." },
+          { key: "descricao", stage: 2, type: "text", multi: true, min: 12, max: 2000, label: "Descrição", err: "Me conta um pouco mais sobre o que você precisa.", ph: "Descreva o que você precisa", say: () => ["Tudo bem! <b>Descreva de novo o que você precisa</b> que eu atualizo o pedido e o valor:"] },
           { key: "ia", stage: 2, type: "ia", multi: true, max: 1500, ph: "Responda aqui", skip: "Prefiro explicar no WhatsApp", when: () => !iaOff },
           {
             key: "contexto",
@@ -3213,7 +3216,7 @@
             multi: true,
             optional: true,
             max: 1500,
-            when: () => !iaUsed && (ans.descricao || "").length < 70,
+            when: () => !iaUsed && !redo && (ans.descricao || "").length < 70,
             say: () => ["Pra acertar de primeira, me conta um pouco mais: <b>pra quem é esse material e qual o objetivo?</b>", "Ex.: vender mais na Black Friday, captar leads, divulgar um evento..."],
             ph: "Público, objetivo, oferta...",
             skip: "Prefiro explicar no WhatsApp",
@@ -3486,7 +3489,10 @@
           (d.servicos || []).filter((n) => names.includes(n)).forEach((n) => sel.has(n) || sel.set(n, 1));
           (d.quantidades || []).forEach((q) => {
             const n = Math.max(1, Math.min(99, parseInt(q.quantidade) || 1));
-            if (names.includes(q.servico)) sel.set(q.servico, n);
+            if (names.includes(q.servico)) {
+              sel.set(q.servico, n);
+              qtyKnown.add(q.servico);
+            }
           });
           ["formato", "prazo", "textos", "identidade"].forEach((k) => {
             if (d[k] && typeof d[k] === "string" && !ans[k]) ans[k] = d[k].slice(0, 200);
@@ -3532,10 +3538,13 @@
           $("bar").style.width = Math.round((i / REVIEW) * 100) + "%";
           trackStage(q.stage);
           if (q.type === "ia") return iaStep();
-          if (q.type === "services") await servicesIntro();
-          else if (q.type === "qty") await bot(editing ? "Ajuste as quantidades:" : "<b>Quantas peças</b> você precisa de cada?");
+          if (q.type === "services") {
+            autoServices();
+            busy = false;
+            return next();
+          }
+          if (q.type === "qty") await bot(editing ? "Ajuste as quantidades:" : "<b>Quantas peças</b> você precisa de cada?");
           else for (const l of q.say()) await bot(l);
-          if (q.type === "services") servicesCard();
           if (q.type === "qty") qtyCard();
           if (q.type === "review") reviewCard();
           busy = false;
@@ -3548,6 +3557,10 @@
           }
           let i = cur + 1;
           while (Q[i].when && !Q[i].when()) i++;
+          if (redo && i > Q.findIndex((q) => q.key === "quantidade")) {
+            redo = false;
+            i = REVIEW;
+          }
           ask(i);
         }
         function validate(q, v) {
@@ -3605,6 +3618,15 @@
             if (!started) start();
             hist.length = 0;
             hist.push({ role: "user", text: v });
+            if (editing) {
+              editing = false;
+              redo = true;
+              sel.clear();
+              qtyKnown.clear();
+              ans.contexto = "";
+              iaQs = 2;
+              iaCalls = Math.min(iaCalls, 3);
+            }
           }
           const val = q.type === "tel" ? mask(v) : v || (shown && q.skipValue) || "";
           ans[q.key] = val;
@@ -3638,17 +3660,18 @@
         }
 
         /* ---------- Serviços ---------- */
-        async function servicesIntro() {
-          if (editing) return void (await bot("Tudo bem, ajuste os serviços aqui:"));
-          if (iaUsed && sel.size) return void (await bot("Separei os serviços que entendi do seu pedido. <b>Confere e ajusta</b> se precisar:"));
-          const found = detect((ans.descricao || "") + " " + (ans.contexto || ""));
+        function autoServices() {
           const txt = (ans.descricao || "") + " " + (ans.contexto || "");
+          if (!sel.size) detect(txt).forEach((n) => sel.set(n, 1));
           const qm = txt.match(/\b(\d{1,2})\s+(?:\S+\s+){0,2}?(criativ|posts?|carross|thumb|artes?|pe[cç]as?)/i);
-          found.forEach((n) => sel.has(n) || sel.set(n, item(n).unit && qm ? Math.min(99, +qm[1]) : 1));
-          if (found.length) {
-            await bot(`Entendi! Pelo que você descreveu, é <b>${esc(found.join(", ").toLowerCase())}</b>.`);
-            await bot("Confirma abaixo ou marque outros serviços que você precisa:");
-          } else await bot("Pra eu organizar certinho, <b>qual tipo de material é esse?</b> Pode marcar mais de um.");
+          if (qm)
+            unitItems().forEach((n) => {
+              if (!qtyKnown.has(n)) {
+                sel.set(n, Math.max(1, Math.min(99, +qm[1])));
+                qtyKnown.add(n);
+              }
+            });
+          if (!sel.size) sel.set("Outro (vou explicar)", 1);
         }
         function lockCard(b) {
           b.querySelectorAll("button,input").forEach((x) => (x.disabled = true));
@@ -3725,6 +3748,7 @@
           ok.onclick = () => {
             if (busy) return;
             lockCard(b);
+            unitItems().forEach((n) => qtyKnown.add(n));
             me(
               [...sel]
                 .filter(([n]) => item(n).unit)
@@ -3840,8 +3864,8 @@
             dl.append(w);
           };
           [
-            ["Serviços", [...sel.keys()].join(", "), "servico"],
-            ["Quantidade", qtdText(), needsQty() ? "quantidade" : ""],
+            ["Serviços", [...sel.keys()].join(", "), ""],
+            ["Quantidade", qtdText(), unitItems().length ? "quantidade" : ""],
             ["Pedido", d.descricao, "descricao"],
             ["Formato", d.formato, "formato"],
             ["Textos", d.textos, "textos"],
