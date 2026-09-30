@@ -2860,7 +2860,7 @@
           <h1>Seu design pronto em <b>poucos minutos</b>, feito por uma designer de verdade.</h1>
         </div>
         <div class="ai__chatbar" id="chatbar" hidden>
-          <span class="chat__ava"><img src="imagens/avatar-ketlin.webp" width="40" height="40" alt="" /></span>
+          <span class="chat__ava"><img src="imagens/avatar-ia.svg" width="40" height="40" alt="" /></span>
           <div class="chat__who">
             <strong>Assistente de IA da Ketlin</strong>
             <small id="stepName">Seu pedido</small>
@@ -3101,7 +3101,7 @@
             kind: "arte",
             items: [
               { name: "Post para feed", price: 30, bulk: { min: 3, price: 25 }, unit: true, k: /\bposts?\b|feed|postage|publica[cç]/i },
-              { name: "Carrossel", price: 30, unit: true, k: /carross?el/i },
+              { name: "Carrossel", price: 30, unit: true, k: /carross?e(l|is)/i },
               { name: "Versão stories", free: true, k: /stor(y|ies)|\bstory\b/i },
               { name: "Criativos para anúncios", price: 30, bulk: { min: 3, price: 25 }, unit: true, k: /criativ|an[uú]ncio|\bads\b|tr[aá]fego|campanha/i },
               { name: "Pacote de artes", quote: true, k: /pacote|mensal|m[eê]s inteiro|calend[aá]rio/i },
@@ -3353,7 +3353,7 @@
           if (kind !== "me") {
             const a = document.createElement("img");
             a.className = "msg__ava";
-            a.src = "imagens/avatar-ketlin.webp";
+            a.src = "imagens/avatar-ia.svg";
             a.alt = "";
             a.width = a.height = 28;
             m.append(a);
