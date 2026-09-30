@@ -3478,7 +3478,7 @@
             tm = setTimeout(() => ctl.abort(), 15e3);
           try {
             const r = await fetch(CONFIG.iaUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ historico: hist }), signal: ctl.signal });
-            if (!r.ok) throw new Error("IA " + r.status);
+            if (!r.ok) throw new Error("IA " + r.status + " " + (await r.text()).slice(0, 300));
             const d = await r.json();
             if (!d || typeof d.resposta !== "string") throw new Error("IA formato");
             return d;

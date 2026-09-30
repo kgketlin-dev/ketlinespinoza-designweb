@@ -70,16 +70,18 @@ const ESQUEMA = {
 
 const ORIGENS = /^https:\/\/(ketlinespinoza-designweb[a-z0-9-]*\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
 
-async function gerar(model, key, contents) {
+async function gerar(model, key, contents, semEsquema) {
   const ctl = new AbortController();
   const tm = setTimeout(() => ctl.abort(), 12000);
   try {
-    const generationConfig = { temperature: 0.4, maxOutputTokens: 900, responseMimeType: "application/json", responseSchema: ESQUEMA };
+    const generationConfig = { temperature: 0.4, maxOutputTokens: 900, responseMimeType: "application/json" };
+    if (!semEsquema) generationConfig.responseSchema = ESQUEMA;
     if (/^gemini-2\.5/.test(model)) generationConfig.thinkingConfig = { thinkingBudget: 0 };
+    const instr = semEsquema ? INSTRUCOES + "\n\nResponda APENAS com um objeto JSON com as chaves: resposta, pergunta, servicos (array), quantidades (array de {servico, quantidade}), formato, prazo, textos, identidade, resumo." : INSTRUCOES;
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({ systemInstruction: { parts: [{ text: INSTRUCOES }] }, contents, generationConfig }),
+      body: JSON.stringify({ systemInstruction: { parts: [{ text: instr }] }, contents, generationConfig }),
       signal: ctl.signal,
     });
     return r;
@@ -90,6 +92,29 @@ async function gerar(model, key, contents) {
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
+  const modelos = [process.env.GEMINI_MODEL, "gemini-2.5-flash", "gemini-flash-latest", "gemini-2.0-flash"].filter((m, i, a) => m && a.indexOf(m) === i);
+
+  // Diagnóstico: abra /api/chat no navegador. Não mostra a chave.
+  if (req.method === "GET") {
+    const k = process.env.GEMINI_API_KEY;
+    const out = { chave_configurada: !!k, ambiente: process.env.VERCEL_ENV || "local", testes: [] };
+    if (k) {
+      for (const m of modelos) {
+        for (const sem of [false, true]) {
+          try {
+            const r = await gerar(m, k, [{ role: "user", parts: [{ text: "Preciso de 3 criativos para Black Friday" }] }], sem);
+            const txt = await r.text();
+            out.testes.push({ modelo: m, com_esquema: !sem, status: r.status, detalhe: r.ok ? "ok" : txt.slice(0, 300) });
+            if (r.ok) break;
+          } catch (e) {
+            out.testes.push({ modelo: m, com_esquema: !sem, erro: String(e).slice(0, 200) });
+          }
+        }
+        if (out.testes.some((x) => x.status === 200)) break;
+      }
+    }
+    return res.status(200).json(out);
+  }
   if (req.method !== "POST") return res.status(405).json({ erro: "Use POST" });
 
   const origem = req.headers.origin || "";
@@ -113,13 +138,20 @@ module.exports = async (req, res) => {
   const contents = hist.map((m) => ({ role: m.role === "model" ? "model" : "user", parts: [{ text: String(m.text || "").slice(0, 2000) }] }));
   if (contents[0].role !== "user") contents.shift();
 
-  const modelos = [process.env.GEMINI_MODEL, "gemini-2.5-flash", "gemini-flash-latest", "gemini-2.0-flash"].filter((m, i, a) => m && a.indexOf(m) === i);
-
   try {
+    let ultimo = null;
     for (const model of modelos) {
-      const r = await gerar(model, key, contents);
-      if (r.status === 404 || r.status === 400) continue; // modelo indisponível: tenta o próximo
-      if (!r.ok) return res.status(502).json({ erro: "IA indisponível", status: r.status });
+      let r = await gerar(model, key, contents);
+      if (r.status === 400) r = await gerar(model, key, contents, true); // tenta sem o esquema
+      if (r.status === 404 || r.status === 400) {
+        ultimo = { status: r.status, detalhe: (await r.text()).slice(0, 300) };
+        continue; // modelo indisponível: tenta o próximo
+      }
+      if (!r.ok) {
+        const detalhe = (await r.text()).slice(0, 300);
+        console.error("Gemini", model, r.status, detalhe);
+        return res.status(502).json({ erro: "IA indisponível", status: r.status, detalhe });
+      }
       const j = await r.json();
       const txt = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts && j.candidates[0].content.parts.map((p) => p.text || "").join("");
       let d;
@@ -142,8 +174,10 @@ module.exports = async (req, res) => {
         modelo: model,
       });
     }
-    return res.status(502).json({ erro: "Nenhum modelo disponível" });
+    console.error("Gemini sem modelo disponível", ultimo);
+    return res.status(502).json({ erro: "Nenhum modelo disponível", ultimo });
   } catch (e) {
-    return res.status(504).json({ erro: "Tempo esgotado" });
+    console.error("Gemini erro", e);
+    return res.status(504).json({ erro: "Tempo esgotado ou falha de rede" });
   }
 };
