@@ -3475,7 +3475,7 @@
           if (iaOff || iaCalls >= 4) return null;
           iaCalls++;
           const ctl = new AbortController(),
-            tm = setTimeout(() => ctl.abort(), 15e3);
+            tm = setTimeout(() => ctl.abort(), 25e3);
           try {
             const r = await fetch(CONFIG.iaUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ historico: hist }), signal: ctl.signal });
             if (!r.ok) throw new Error("IA " + r.status + " " + (await r.text()).slice(0, 300));

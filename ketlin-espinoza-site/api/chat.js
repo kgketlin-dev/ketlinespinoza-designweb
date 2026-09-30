@@ -72,7 +72,7 @@ const ORIGENS = /^https:\/\/(ketlinespinoza-designweb[a-z0-9-]*\.vercel\.app)$|^
 
 async function gerar(model, key, contents, semEsquema) {
   const ctl = new AbortController();
-  const tm = setTimeout(() => ctl.abort(), 12000);
+  const tm = setTimeout(() => ctl.abort(), 9000);
   try {
     const generationConfig = { temperature: 0.4, maxOutputTokens: 900, responseMimeType: "application/json" };
     if (!semEsquema) generationConfig.responseSchema = ESQUEMA;
@@ -92,7 +92,7 @@ async function gerar(model, key, contents, semEsquema) {
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
-  const modelos = [process.env.GEMINI_MODEL, "gemini-2.5-flash", "gemini-flash-latest", "gemini-2.0-flash"].filter((m, i, a) => m && a.indexOf(m) === i);
+  const modelos = [process.env.GEMINI_MODEL, "gemini-3.8-flash", "gemini-flash-latest", "gemini-flash-lite-latest"].filter((m, i, a) => m && a.indexOf(m) === i);
 
   // Diagnóstico: abra /api/chat no navegador. Não mostra a chave.
   if (req.method === "GET") {
@@ -141,11 +141,17 @@ module.exports = async (req, res) => {
   try {
     let ultimo = null;
     for (const model of modelos) {
-      let r = await gerar(model, key, contents);
-      if (r.status === 400) r = await gerar(model, key, contents, true); // tenta sem o esquema
-      if (r.status === 404 || r.status === 400) {
+      let r;
+      try {
+        r = await gerar(model, key, contents);
+        if (r.status === 400) r = await gerar(model, key, contents, true); // tenta sem o esquema
+      } catch (e) {
+        ultimo = { erro: String(e).slice(0, 120) };
+        continue; // demorou demais: tenta o próximo
+      }
+      if ([404, 400, 429, 500, 503].includes(r.status)) {
         ultimo = { status: r.status, detalhe: (await r.text()).slice(0, 300) };
-        continue; // modelo indisponível: tenta o próximo
+        continue; // modelo indisponível ou ocupado: tenta o próximo
       }
       if (!r.ok) {
         const detalhe = (await r.text()).slice(0, 300);
