@@ -3297,19 +3297,10 @@
             type: "text",
             ac: "name",
             min: 2,
-            say: () => ["Seu briefing está quase pronto! <b>Como posso te chamar?</b>"],
+            say: () => ["Seu briefing está quase pronto! <b>Como posso te chamar?</b>", "Seu WhatsApp não precisa digitar: no final você recebe um link pra enviar a demanda direto pra Ketlin."],
             ph: "Nome e sobrenome",
-            err: "Me diz seu nome pra eu te encontrar no WhatsApp.",
+            err: "Me diz seu nome pra eu identificar sua demanda.",
             label: "Nome",
-          },
-          {
-            key: "whatsapp",
-            stage: 4,
-            type: "tel",
-            say: () => [`Prazer, ${first()}! Qual o seu <b>WhatsApp com DDD</b>? É por lá que a Ketlin recebe e confirma a sua demanda.`],
-            ph: "(00) 00000-0000",
-            err: "Esse número parece incompleto. Manda com DDD, por favor.",
-            label: "WhatsApp",
           },
           {
             key: "empresa",
@@ -3859,7 +3850,6 @@
             ["Arquivos", files.length ? `${files.length} arquivo(s)` + (ans.arquivosNota ? " + observação" : "") : ans.arquivosNota ? "Observação enviada" : "Nenhum", "arquivos"],
             ["Referências", d.referencias, "referencias"],
             ["Nome", d.nome, "nome"],
-            ["WhatsApp", d.whatsapp, "whatsapp"],
             ["Empresa", d.empresa, "empresa"],
             ["Perfil", d.perfil, "perfil"],
           ]
@@ -3940,7 +3930,7 @@
               protocolo: proto,
               etiqueta: CONFIG.etiqueta,
               origem: window.__origem || "direto",
-              whatsapp_cliente: "55" + digits(d.whatsapp),
+              whatsapp_cliente: d.whatsapp ? "55" + digits(d.whatsapp) : "",
               mensagem: fullMsg(d, proto, true) + "\n*Origem:* " + (window.__origem || "direto"),
               mensagem_completa: fullMsg(d, proto),
               enviado_em: new Date().toLocaleString("pt-BR"),
@@ -3981,7 +3971,7 @@
           ai.classList.add("is-done");
           await bot(`Tudo certo, ${first()}! 🎉 Agora é só enviar a mensagem no WhatsApp. A Ketlin recebe sua demanda, confirma e só então você paga.`);
           const { b } = card();
-          b.innerHTML = `<div class="done"><div class="done__icon"><svg><use href="#i-check"/></svg></div><h3>Pedido pronto!</h3><span class="proto">Protocolo ${proto}</span><div class="pix"><div class="pix__total"><span>${t.quotes.length && t.sum ? "Total (+ itens sob orçamento)" : "Total"}</span><strong>${esc(t.totalText.replace(" + orçamento", ""))}</strong></div></div><ol class="next"><li>Envie a mensagem pronta no WhatsApp</li><li>A Ketlin recebe e confirma sua demanda</li><li>Só depois disso você paga via Pix</li></ol><a class="btn btn--whats" href="${wa}" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg>Enviar minha demanda no WhatsApp</a><p class="redirect"></p></div>`;
+          b.innerHTML = `<div class="done"><div class="done__icon"><svg><use href="#i-check"/></svg></div><h3>Pedido pronto!</h3><span class="proto">Protocolo ${proto}</span><div class="pix"><div class="pix__total"><span>${t.quotes.length && t.sum ? "Total (+ itens sob orçamento)" : "Total"}</span><strong>${esc(t.totalText.replace(" + orçamento", ""))}</strong></div></div><ol class="next"><li>Toque no botão e envie a mensagem pronta no WhatsApp</li><li>A Ketlin recebe e confirma sua demanda</li><li>Só depois disso você paga via Pix</li></ol><a class="btn btn--whats" href="${wa}" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg>Finalizar e enviar minha demanda no WhatsApp</a><p class="redirect"></p></div>`;
           const done = b.querySelector(".done");
           done.insertBefore(noPay(), b.querySelector(".next"));
           done.insertBefore($("tplHours").content.cloneNode(true), b.querySelector(".next"));
