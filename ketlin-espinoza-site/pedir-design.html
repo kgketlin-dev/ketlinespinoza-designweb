@@ -3100,7 +3100,7 @@
             title: "Redes sociais e anúncios",
             kind: "arte",
             items: [
-              { name: "Post para feed", price: 35, unit: true, k: /\bposts?\b|feed|postage|publica[cç]/i },
+              { name: "Post para feed", price: 30, bulk: { min: 3, price: 25 }, unit: true, k: /\bposts?\b|feed|postage|publica[cç]/i },
               { name: "Carrossel", price: 45, unit: true, k: /carross?el/i },
               { name: "Versão stories", free: true, k: /stor(y|ies)|\bstory\b/i },
               { name: "Criativos para anúncios", price: 35, unit: true, k: /criativ|an[uú]ncio|\bads\b|tr[aá]fego|campanha/i },
@@ -3195,10 +3195,11 @@
               lines.push({ text: n, value: "grátis" });
               return;
             }
-            const v = it.price * (it.unit ? qty : 1);
+            const pu = it.bulk && qty >= it.bulk.min ? it.bulk.price : it.price;
+            const v = pu * (it.unit ? qty : 1);
             sum += v;
             if (it.from) from = true;
-            lines.push({ text: it.unit ? `${n} (${qty}x ${brl(it.price)})` : n, value: (it.from ? "a partir de " : "") + brl(v) });
+            lines.push({ text: it.unit ? `${n} (${qty}x ${brl(pu)})` : n, value: (it.from ? "a partir de " : "") + brl(v) });
           });
           const priced = lines.length - quotes.length;
           const totalText = sum === 0 && quotes.length && !priced ? "Sob orçamento" : (from ? "a partir de " : "") + brl(sum) + (quotes.length ? " + orçamento" : "");
@@ -3823,7 +3824,10 @@
           tot.className = "price__total";
           tot.innerHTML = `<span>${t.quotes.length && t.sum ? "Total (+ itens sob orçamento)" : "Total"}</span><strong></strong>`;
           tot.querySelector("strong").textContent = t.totalText.replace(" + orçamento", "");
-          box.append(h, lines, tot);
+          const muda = document.createElement("p");
+          muda.className = "price__q";
+          muda.textContent = "O valor pode mudar caso haja alteração no pedido.";
+          box.append(h, lines, tot, muda);
           if (t.quotes.length) {
             const qn = document.createElement("p");
             qn.className = "price__q";
@@ -3995,7 +3999,7 @@
           ai.classList.add("is-done");
           await bot(`Tudo certo, ${first()}! 🎉 Agora é só enviar a mensagem no WhatsApp. A Ketlin recebe sua demanda, confirma e só então você paga.`);
           const { b } = card();
-          b.innerHTML = `<div class="done"><div class="done__icon"><svg><use href="#i-check"/></svg></div><h3>Pedido pronto!</h3><span class="proto">Protocolo ${proto}</span><div class="pix"><div class="pix__total"><span>${t.quotes.length && t.sum ? "Total (+ itens sob orçamento)" : "Total"}</span><strong>${esc(t.totalText.replace(" + orçamento", ""))}</strong></div></div><ol class="next"><li>Toque no botão e envie a mensagem pronta no WhatsApp</li><li>A Ketlin recebe e confirma sua demanda</li><li>Só depois disso você paga via Pix</li></ol><a class="btn btn--whats" href="${wa}" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg>Finalizar e enviar minha demanda no WhatsApp</a><p class="redirect"></p></div>`;
+          b.innerHTML = `<div class="done"><div class="done__icon"><svg><use href="#i-check"/></svg></div><h3>Pedido pronto!</h3><span class="proto">Protocolo ${proto}</span><div class="pix"><div class="pix__total"><span>${t.quotes.length && t.sum ? "Total (+ itens sob orçamento)" : "Total"}</span><strong>${esc(t.totalText.replace(" + orçamento", ""))}</strong></div><p class="price__q">O valor pode mudar caso haja alteração no pedido.</p></div><ol class="next"><li>Toque no botão e envie a mensagem pronta no WhatsApp</li><li>A Ketlin recebe e confirma sua demanda</li><li>Só depois disso você paga via Pix</li></ol><a class="btn btn--whats" href="${wa}" target="_blank" rel="noopener"><svg class="i"><use href="#i-whats"/></svg>Finalizar e enviar minha demanda no WhatsApp</a><p class="redirect"></p></div>`;
           const done = b.querySelector(".done");
           done.insertBefore(noPay(), b.querySelector(".next"));
           done.insertBefore($("tplHours").content.cloneNode(true), b.querySelector(".next"));
