@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <!-- Google tag (Google Ads) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18485665071"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "AW-18485665071");
+    </script>
+    <!-- Fim Google tag -->
     <!-- Google Tag Manager -->
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -4019,6 +4028,7 @@
           if (window.fbq) fbq("track", "Lead", { content_name: "Pedido de design", value: t.sum, currency: "BRL" });
           window.dataLayer = window.dataLayer || [];
           dataLayer.push({ event: "pedido_enviado", value: t.sum || 0, currency: "BRL", transaction_id: proto });
+          if (window.gtag) gtag("event", "conversion", { send_to: "AW-18485665071/qiVECISHpIwdEK-60-5E", value: t.sum || 1, currency: "BRL", transaction_id: proto });
           go.closest(".card__actions").remove();
           $("bar").style.width = "100%";
           $("stepName").textContent = "Pedido pronto";
