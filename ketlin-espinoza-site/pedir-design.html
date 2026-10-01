@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <!-- Google Tag Manager -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MDQGSXCR");
+    </script>
+    <!-- Fim Google Tag Manager -->
     <title>Design Gráfico Online em Minutos | Ketlin Espinoza</title>
     <meta name="description" content="Peça artes, criativos, landing pages e impressos online. Peça seu design conversando com uma IA, veja o valor na hora e confirme no WhatsApp. Feito por designer formada, com 3 rodadas de ajustes grátis." />
     <link rel="canonical" href="https://ketlinespinozadesign.com/pedir-design" />
@@ -2771,7 +2784,10 @@
         "click",
         function (e) {
           var a = e.target.closest && e.target.closest('a[href*="wa.me"],a[href*="whatsapp.com"]');
-          if (a && window.fbq) fbq("track", "Contact");
+          if (!a) return;
+          if (window.fbq) fbq("track", "Contact");
+          window.dataLayer = window.dataLayer || [];
+          dataLayer.push({ event: "clique_whatsapp", pagina: location.pathname });
         },
         true,
       );
@@ -2784,11 +2800,12 @@
           var q = new URLSearchParams(location.search),
             k = "ke_origem",
             o = null;
-          if (q.get("utm_source") || q.get("utm_content") || q.get("fbclid")) {
-            var src = q.get("utm_source") || (q.get("fbclid") ? "meta" : ""),
+          var gc = q.get("gclid") || q.get("gbraid") || q.get("wbraid");
+          if (q.get("utm_source") || q.get("utm_content") || q.get("fbclid") || gc) {
+            var src = q.get("utm_source") || (gc ? "google" : q.get("fbclid") ? "meta" : ""),
               c = q.get("utm_content") || "",
               cp = q.get("utm_campaign") || "";
-            o = (src === "meta" ? "Meta Ads" : src || "Link") + (c ? " · " + c : "") + (cp ? " · " + cp : "");
+            o = (src === "meta" ? "Meta Ads" : src === "google" && gc ? "Google Ads" : src || "Link") + (c ? " · " + c : "") + (cp ? " · " + cp : "");
           } else if (document.referrer && document.referrer.indexOf(location.host) < 0) {
             o = "Referência: " + new URL(document.referrer).hostname;
           }
@@ -2807,6 +2824,9 @@
     </script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDQGSXCR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- Fim Google Tag Manager (noscript) -->
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
       <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></symbol>
       <symbol id="i-check-solid" viewBox="0 0 512 512">
@@ -3997,6 +4017,8 @@
           if (!ok) msg += `\n\n━━━━━━━━━━\n${fullMsg(d, proto)}`;
           const wa = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
           if (window.fbq) fbq("track", "Lead", { content_name: "Pedido de design", value: t.sum, currency: "BRL" });
+          window.dataLayer = window.dataLayer || [];
+          dataLayer.push({ event: "pedido_enviado", value: t.sum || 0, currency: "BRL", transaction_id: proto });
           go.closest(".card__actions").remove();
           $("bar").style.width = "100%";
           $("stepName").textContent = "Pedido pronto";
