@@ -68,7 +68,7 @@ const ESQUEMA = {
   required: ["resposta", "pergunta", "servicos", "resumo"],
 };
 
-const ORIGENS = /^https:\/\/(ketlinespinoza-designweb[a-z0-9-]*\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
+const ORIGENS = /^https:\/\/(ketlinespinoza-designweb[a-z0-9-]*\.vercel\.app|(www\.)?ketlinespinozadesign\.com)$|^http:\/\/localhost(:\d+)?$/;
 
 async function gerar(model, key, contents, semEsquema) {
   const ctl = new AbortController();
