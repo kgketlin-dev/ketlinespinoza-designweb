@@ -3033,7 +3033,7 @@
         </div>
       </div>
     </section>
-    <section class="faq" aria-labelledby="faq-title">
+    <section class="faq" id="perguntas" aria-labelledby="faq-title">
       <div class="wrap">
         <h2 id="faq-title">Perguntas frequentes</h2>
         <div class="faq__list">
@@ -4314,6 +4314,21 @@
         window.__hours = u;
         u();
         setInterval(u, 60000);
+      })();
+    </script>
+  <script>
+      /* Links diretos para seções (usados nos sitelinks do Google Ads): ?secao=artes|sites|sobre|perguntas */
+      (function () {
+        try {
+          var id = new URLSearchParams(location.search).get("secao");
+          if (!id || !/^(artes|sites|sobre|perguntas)$/.test(id)) return;
+          var go = function () {
+            var el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          };
+          if (document.readyState === "complete") setTimeout(go, 300);
+          else window.addEventListener("load", function () { setTimeout(go, 300); });
+        } catch (e) {}
       })();
     </script>
   </body>
