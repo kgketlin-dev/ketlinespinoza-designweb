@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Páginas Prontas para Personalizar com IA</title>
+<meta name="description" content="Copie e cole 10 páginas profissionais em HTML e deixe a IA personalizar tudo com a sua marca. Funciona no ChatGPT, Gemini ou Claude.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CORES E FONTES (identidade ketlinespinozadesign.com)
+   ========================================================= */
+:root{
+  --escuro:#170930;      /* faixas escuras */
+  --escuro2:#0e0018;     /* rodapé */
+  --roxo:#8a1ad3;        /* cor principal */
+  --roxo-claro:#bb53ff;
+  --lilas:#c98bff;
+  --turquesa:#00d4c0;    /* destaque em fundo escuro */
+  --claro:#f1f1f1;       /* seções cinza claro */
+  --fundo:#f9f9f9;
+  --branco:#ffffff;
+  --txt:#170930;
+  --mut:#5e5370;
+  --borda:#e9e2ef;
+  --vermelho:#e5484d;
+  --fonte:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fonte);color:var(--txt);background:var(--fundo);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{line-height:1.25;letter-spacing:-.01em}
+p+p{margin-top:12px}
+.w{max-width:1000px;margin:0 auto;padding:0 20px}
+.estreito{max-width:760px;margin-left:auto;margin-right:auto}
+section{padding:64px 0}
+.c{text-align:center}
+.cinza{background:var(--claro)}
+.branco{background:var(--branco)}
+.escuro{background:radial-gradient(60% 80% at 85% 20%,rgba(138,26,211,.35),transparent 65%),var(--escuro);color:#fff}
+.h2{font-size:clamp(24px,3.6vw,36px);font-weight:700}
+mark{background:none;color:var(--roxo)}
+.escuro mark{color:var(--turquesa)}
+.sub{font-size:clamp(16px,2vw,18px);color:var(--mut);margin-top:14px;line-height:1.6}
+.escuro .sub{color:#d7cce0}
+.kicker{font-weight:600;font-size:19px;color:var(--mut);margin-bottom:8px}
+.sp{height:28px}
+
+/* ESPAÇO DE IMAGEM: troque cada <div class="img ..."> por <img src="..." alt="..."> */
+.img{width:100%;border:2px dashed #cdbfe0;border-radius:18px;background:repeating-linear-gradient(45deg,#efe9f6,#efe9f6 12px,#f7f3fb 12px,#f7f3fb 24px);display:grid;place-items:center;text-align:center;color:#7d6a96;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:16px;line-height:1.5}
+.escuro .img{background:repeating-linear-gradient(45deg,#24103f,#24103f 12px,#2c1449 12px,#2c1449 24px);border-color:#5a3a82;color:#c4aee0}
+.r1x1{aspect-ratio:1/1}.r4x3{aspect-ratio:4/3}.r4x5{aspect-ratio:4/5}
+
+/* BOTÃO */
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:460px;background:linear-gradient(135deg,var(--roxo-claro),var(--roxo));color:#fff;font-family:var(--fonte);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.03em;padding:19px 26px;border-radius:40px;text-decoration:none;box-shadow:0 14px 34px -10px rgba(138,26,211,.7);transition:transform .15s,box-shadow .15s;animation:pulsa 2.2s infinite}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(138,26,211,.85)}
+@keyframes pulsa{0%,100%{scale:1}50%{scale:1.03}}
+@media (prefers-reduced-motion:reduce){.btn{animation:none}}
+
+/* 1. TOPO */
+.logo-bar{background:#fff;border-bottom:1px solid var(--borda);padding:14px 20px;text-align:center}
+.logo-bar img{height:46px;width:auto;display:inline-block}
+.pre{background:var(--escuro);color:#fff;text-align:center;padding:14px 20px}
+.pre p{font-weight:600;font-size:clamp(14px,1.8vw,17px);max-width:760px;margin:0 auto;line-height:1.45}
+.pre p span{color:var(--turquesa)}
+
+/* 2. HERO */
+.hero{background:var(--claro);padding:52px 0 60px}
+.hero .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+.h1{font-size:clamp(28px,4.2vw,44px);font-weight:800;line-height:1.2}
+.hero-img{width:100%;height:auto;display:block;border-radius:24px;box-shadow:0 30px 60px -25px rgba(23,9,48,.55)}
+.hero .sub{margin:16px 0 22px}
+.selos{display:flex;flex-wrap:wrap;gap:8px}
+.selos span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borda);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:600;white-space:nowrap;line-height:1.2}
+.selos span::before{content:"✓";display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--roxo);color:#fff;font-size:10px;font-weight:800;flex:none}
+
+/* 3. VITRINE (carrossel de prints) */
+.vitrine{position:relative;margin-top:32px}
+.galeria{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 14px;scrollbar-width:none}
+.galeria::-webkit-scrollbar{display:none}
+.print{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start;background:#fff;border:1px solid var(--borda);border-radius:18px;overflow:hidden;text-align:left;box-shadow:0 16px 34px -22px rgba(23,9,48,.45)}
+.print .tela{background:#ece5f3;padding:10px 10px 0}
+.print .tela i{display:flex;gap:4px;margin:0 0 7px 2px}
+.print .tela i b{width:7px;height:7px;border-radius:50%;background:#cbbbdc}
+.print img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:8px 8px 0 0;display:block}
+.print p{padding:12px 16px 14px;font-weight:600;font-size:15px;line-height:1.35}
+.print p small{display:block;font-size:11.5px;letter-spacing:.12em;color:var(--roxo);font-weight:700}
+.print .tela{position:relative;padding-right:10px}
+.print .tela>img{width:84%}
+.cel{position:absolute;right:10px;bottom:-26px;width:28%;padding:4px;border-radius:16px;background:#170930;box-shadow:0 14px 28px -10px rgba(23,9,48,.55);z-index:1}
+.cel img{width:100%;height:auto;aspect-ratio:200/410;object-fit:cover;object-position:top;border-radius:12px;display:block}
+.print p{padding-right:34%!important}
+.seta{position:absolute;top:40%;width:44px;height:44px;border-radius:50%;border:none;background:#fff;color:var(--roxo);box-shadow:0 8px 20px -6px rgba(23,9,48,.4);cursor:pointer;display:grid;place-items:center;z-index:2}
+.seta svg{width:20px;height:20px}
+.seta.ant{left:-16px}.seta.prox{right:-16px}
+.dica{font-size:13px;color:var(--mut);margin-top:6px}
+
+/* 4. DOR */
+.pensa{display:grid;gap:14px;max-width:620px;margin:28px auto 32px}
+.balao{position:relative;background:#fff;border:1px solid var(--borda);border-radius:22px;padding:15px 20px 15px 52px;text-align:left;font-weight:500;font-size:16px;line-height:1.5;box-shadow:0 8px 24px -14px rgba(23,9,48,.35)}
+.balao::before{content:"💭";position:absolute;left:18px;top:13px;font-size:20px}
+.balao:nth-child(even){margin-left:36px}
+.balao:nth-child(odd){margin-right:36px}
+.dores{width:100%;max-width:520px;height:auto;display:block;margin:24px auto 30px}
+.forte{font-weight:700;font-size:clamp(19px,2.6vw,24px);max-width:760px;margin:0 auto;line-height:1.4}
+.forte mark{color:var(--vermelho)}
+
+/* 5. AGITAÇÃO */
+.agita .grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.agita p{font-size:clamp(18px,2.3vw,22px);font-weight:500;line-height:1.5}
+.agita p+p{margin-top:18px}
+.agita b{color:var(--turquesa);font-weight:700}
+
+/* 6. PERGUNTA */
+.pergunta .q{font-weight:700;font-size:clamp(21px,3vw,28px);margin:6px 0 24px;line-height:1.35}
+.pergunta .hl{color:var(--roxo);background:linear-gradient(transparent 62%,rgba(187,83,255,.28) 62%);padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.pergunta .sim{display:inline-block;background:var(--escuro);color:#fff;border-radius:16px;padding:16px 24px;font-weight:500;font-size:16px;line-height:1.5}
+.pergunta .sim b{color:var(--turquesa)}
+
+/* 7. PASSOS */
+.passos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.passo{background:#fff;border:1px solid var(--borda);border-radius:18px;padding:16px 16px 20px;text-align:center}
+.passo .n{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--roxo-claro),var(--roxo));color:#fff;font-weight:700;margin:14px 0 10px}
+.passo h3{font-size:17px;margin-bottom:6px}
+.passo p{font-size:14px;color:var(--mut);line-height:1.55}
+.faixa-tempo{margin-top:28px;font-weight:700;font-size:18px;color:var(--roxo);letter-spacing:.04em}
+
+.foto-apoio{width:100%;height:auto;display:block;border-radius:20px;box-shadow:0 24px 50px -24px rgba(0,0,0,.6)}
+.benef-img{width:100%;max-width:440px;height:auto;display:block;margin:0 auto}
+.passo-img{width:100%;height:auto;display:block;border-radius:12px;background:#fff}
+/* 8 e 13. LISTAS */
+.benef .grid,.quem .grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.lista-check{list-style:none;display:grid;gap:10px;text-align:left}
+.lista-check li{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:13px 16px;font-weight:500;font-size:15.5px;line-height:1.45}
+.lista-check li::before{content:"✓";flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--roxo);color:#fff;font-weight:800;font-size:13px}
+.escuro .lista-check li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#fff}
+.escuro .lista-check li::before{background:var(--turquesa);color:var(--escuro)}
+
+/* FAIXAS ESCURAS */
+.faixa{padding:46px 0;text-align:center}
+.faixa .mini{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--escuro);background:var(--turquesa);padding:6px 16px;border-radius:30px;margin-bottom:14px}
+
+/* ENTREGÁVEIS E BÔNUS */
+.itens{display:grid;gap:22px}
+.item{display:grid;grid-template-columns:380px 1fr;gap:32px;align-items:center;background:#fff;border:1px solid var(--borda);border-radius:22px;padding:22px}
+.item:nth-child(even){grid-template-columns:1fr 380px}
+.item:nth-child(even) .mock-item{order:2}
+.mock-item{width:100%;height:auto;display:block}
+.item .tg{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--escuro);padding:5px 12px;border-radius:30px;margin-bottom:12px}
+.item .tg.bonus{background:var(--roxo)}
+.item h3{font-size:clamp(20px,2.4vw,24px);margin-bottom:10px}
+.item p{color:var(--mut);font-size:15.5px;line-height:1.65}
+
+/* 14. ENFIM */
+.enfim .k{font-weight:600;color:var(--mut);font-size:19px}
+.enfim .q{font-weight:600;font-size:clamp(19px,2.6vw,24px);margin:10px 0 14px;line-height:1.45}
+.enfim .r{font-weight:800;font-size:clamp(24px,3.6vw,34px);color:var(--roxo);line-height:1.3}
+
+/* 15. RECAPITULANDO */
+.recap{max-width:680px;margin:30px auto 0;background:#fff;border:1px solid var(--borda);border-radius:22px;overflow:hidden;text-align:left}
+.recap .l{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:15px 22px;border-bottom:1px solid #f0ebf4;font-weight:500;line-height:1.4}
+.recap .l span{display:flex;gap:10px;align-items:flex-start}
+.recap .l span::before{content:"✓";color:var(--roxo);font-weight:800}
+.recap .l s{color:var(--vermelho);white-space:nowrap;font-weight:600}
+.recap .tot{padding:20px 22px;background:var(--escuro);color:#fff;text-align:center;font-size:19px;font-weight:600}
+.recap .tot s{color:#ff8a92;white-space:nowrap}
+
+/* PREÇO */
+.preco-box{max-width:520px;margin:0 auto;background:#fff;border:3px solid var(--roxo);border-radius:28px;padding:28px 24px 26px;text-align:center;box-shadow:0 30px 70px -30px rgba(138,26,211,.55)}
+.preco-box .mock{aspect-ratio:4/3;margin-bottom:20px}
+.kit-img{width:100%;height:auto;display:block;margin:-6px 0 14px}
+.preco-box .de{font-size:17px;color:var(--mut);font-weight:500}
+.preco-box .de s{color:var(--vermelho)}
+.preco-box .vista{font-weight:800;font-size:clamp(68px,15vw,92px);line-height:1;margin:10px 0 2px;color:var(--escuro);letter-spacing:-.02em}
+.preco-box .vista small{font-size:.38em;font-weight:700;vertical-align:.95em;margin-right:4px}
+.preco-box .vista em{display:block;font-style:normal;font-size:22px;font-weight:700;color:var(--roxo);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.preco-box .parc{font-size:17px;font-weight:500;color:var(--mut);margin:10px 0 24px}
+.selos-pag{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+.selos-pag span{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--mut);background:var(--fundo);border:1px solid var(--borda);border-radius:8px;padding:7px 10px;line-height:1}
+.selos-pag svg{width:16px;height:16px;color:var(--roxo);flex:none}
+
+/* 18. COMO RECEBE */
+.receber{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.receber>div{background:#fff;border:1px solid var(--borda);border-radius:18px;padding:26px 20px}
+.receber .ic{font-size:46px;line-height:1;margin-bottom:14px}
+.receber h3{font-size:17px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.02em}
+.receber p{color:var(--mut);font-size:14.5px;line-height:1.6}
+
+/* 20. DUAS OPÇÕES */
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.op{border-radius:22px;padding:28px 24px;text-align:left;border:2px solid}
+.op.ruim{background:#fff6f6;border-color:#f3c4c6}
+.op.boa{background:#f7efff;border-color:var(--roxo)}
+.op .ico{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;margin-bottom:18px}
+.op .ico svg{width:36px;height:36px}
+.op.ruim .ico{background:#ffe1e3;color:var(--vermelho)}
+.op.boa .ico{background:linear-gradient(135deg,var(--roxo-claro),var(--roxo));color:#fff}
+.op .rot{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:30px;color:#fff;margin-bottom:10px}
+.op.ruim .rot{background:var(--vermelho)}
+.op.boa .rot{background:var(--roxo)}
+.op h3{font-size:21px;margin-bottom:8px}
+.op p{color:var(--mut);line-height:1.6}
+.inteligente{font-weight:700;font-size:clamp(19px,2.6vw,24px);margin:36px auto 8px;max-width:680px;line-height:1.4}
+
+/* 21. CRIADORA */
+.autor .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.autor .h2{margin-bottom:6px}
+.autor p{color:#d7cce0;font-size:16.5px;line-height:1.7;margin-top:14px}
+.autor p b{color:#fff}
+
+/* 23. FAQ */
+.faq{max-width:760px;margin:30px auto 0;display:grid;gap:12px;text-align:left}
+details{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:0 20px}
+summary{cursor:pointer;list-style:none;padding:17px 0;font-weight:600;font-size:16.5px;display:flex;justify-content:space-between;gap:14px;align-items:center;line-height:1.4}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;color:var(--roxo);flex:none;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
+
+/* 24. RODAPÉ */
+.rodape{background:radial-gradient(60% 80% at 50% 0%,rgba(138,26,211,.3),transparent 70%),var(--escuro);color:#d7cce0;text-align:center;padding:56px 0 44px}
+.rodape img{height:52px;width:auto;margin:0 auto 30px;display:block}
+.rodape .duv{font-weight:500;font-size:15px;color:#d7cce0;margin-bottom:6px}
+.zap{display:inline-flex;align-items:center;gap:7px;color:#d7cce0;text-decoration:none;font-weight:500;font-size:14.5px;border-bottom:1px solid rgba(215,204,224,.35);padding-bottom:2px;margin-bottom:30px}
+.zap:hover{color:#fff;border-color:#fff}
+.zap svg{width:16px;height:16px}
+.rodape .disc{font-size:12.5px;max-width:720px;margin:0 auto;opacity:.75;line-height:1.6}
+.copy{background:var(--escuro2);color:#a99fc2;text-align:center;font-size:12.5px;padding:18px 20px}
+
+/* RESPONSIVO */
+@media (min-width:1100px){
+  .hero .w{max-width:1180px}
+  .hero .grid{grid-template-columns:1fr 436px}
+  .selos{flex-wrap:nowrap}
+  .pergunta .w.estreito{max-width:960px}
+  .pergunta .sim{white-space:nowrap}
+  .vitrine-tit{max-width:none;white-space:nowrap}
+}
+
+@media (max-width:860px){
+  section{padding:52px 0}
+  .hero .grid,.agita .grid,.benef .grid,.quem .grid,.autor .grid{grid-template-columns:1fr;gap:30px}
+  .hero,.autor,.agita{text-align:center}
+  .benef .h2,.quem .h2{text-align:center}
+  .selos{justify-content:center}
+  .passos{grid-template-columns:1fr 1fr}
+  .item,.item:nth-child(even){grid-template-columns:1fr;text-align:center}
+  .item:nth-child(even) .mock-item{order:0}
+  .mock-item{max-width:440px;margin:0 auto}
+  .receber,.opcoes{grid-template-columns:1fr}
+  .op .ico{margin-left:auto;margin-right:auto}
+  .op{text-align:center}
+  .print{flex-basis:calc((100% - 18px)/2)}
+  .autor .img{max-width:360px;margin:0 auto}
+  .quem .foto-apoio,.foto-ketlin{max-width:360px;margin:0 auto}
+  .hero-img{max-width:480px;margin:0 auto}
+}
+@media (max-width:520px){
+  section{padding:46px 0}
+  .logo-bar img{height:38px}
+  .hero .grid>div{min-width:0}
+  .selos{flex-wrap:nowrap;gap:2px 6px;background:#fff;border:1px solid var(--borda);border-radius:40px;padding:8px 10px;justify-content:space-between}
+  .selos span{font-size:10.5px;padding:0;gap:3px;border:none;background:none;letter-spacing:-.01em}
+  .selos span::before{width:auto;height:auto;background:none;color:var(--roxo);font-size:11px}
+  .passos{grid-template-columns:1fr}
+  .print{flex-basis:82%}
+  .seta{width:38px;height:38px;top:32%}
+  .seta svg{width:18px;height:18px}
+  .seta.ant{left:-8px}.seta.prox{right:-8px}
+  .balao:nth-child(n){margin-left:0;margin-right:0}
+  .lista-check li{font-size:14.5px;padding:12px 14px}
+  .btn{font-size:16.5px;padding:18px 18px}
+  .recap .l{padding:13px 16px;font-size:14.5px}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. LOGO + PRÉ-HEADLINE -->
+<div class="logo-bar"><img src="/imagens/paginas-prontas/pp-0dfd213a83.webp" alt="Páginas Prontas para Personalizar com IA" width="640" height="159"></div>
+<div class="pre"><p>Você precisa de uma página, mas <span>trava toda vez</span> que tenta criar?</p></div>
+
+<!-- 2. HERO -->
+<header class="hero">
+  <div class="w grid">
+    <div>
+      <h1 class="h1">Copie e cole minhas <mark>10 páginas profissionais</mark> e deixe a IA personalizar tudo com a sua marca em minutos</h1>
+      <p class="sub">Mesmo que você não saiba nada de design ou programação.</p>
+      <div class="selos">
+        <span>Pronta em minutos</span>
+        <span>Qualquer IA</span>
+        <span>Publicação grátis</span>
+      </div>
+    </div>
+    <img class="hero-img" src="/imagens/paginas-prontas/pp-d163bc916a.webp" alt="Páginas Prontas para Personalizar com IA no notebook e no celular" width="900" height="1041" fetchpriority="high">
+  </div>
+</header>
+
+<!-- 3. VITRINE -->
+<section class="branco">
+  <div class="w c">
+    <h2 class="h2 estreito vitrine-tit">Veja abaixo as <mark>páginas prontas</mark> que você vai receber</h2>
+    <div class="vitrine">
+      <button class="seta ant" aria-label="Anterior" onclick="rolar(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <div class="galeria" id="galeria"><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-3902cf8bfd.webp" alt="Template Página de Captura" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-dfaa1a5505.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 01</small>Página de Captura</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-0a6d4531bb.webp" alt="Template Página de Vendas" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-bdb8328267.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 02</small>Página de Vendas</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-3ae680530c.webp" alt="Template Link na Bio" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-8f08324363.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 03</small>Link na Bio</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-5263490100.webp" alt="Template Cartão de Visita Digital" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-600aaeeff4.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 04</small>Cartão de Visita Digital</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-8c4619f2b9.webp" alt="Template Página VSL" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-1a46f75796.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 05</small>Página VSL</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-d903db7996.webp" alt="Template Serviço Local" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-605fc1afbf.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 06</small>Serviço Local</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-32d8191455.webp" alt="Template Agendamento pelo WhatsApp" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-9c133236a6.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 07</small>Agendamento pelo WhatsApp</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-bafd8d2476.webp" alt="Template Evento e Workshop" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-2ee3abf7f3.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 08</small>Evento e Workshop</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-4accc2f6bf.webp" alt="Template Página de Aplicação" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-769acc8ed2.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 09</small>Página de Aplicação</p></div><div class="print"><div class="tela"><i><b></b><b></b><b></b></i><img loading="lazy" src="/imagens/paginas-prontas/pp-37676770bf.webp" alt="Template Página de Obrigado" width="800" height="500"><div class="cel"><img loading="lazy" src="/imagens/paginas-prontas/pp-dbba79e65e.webp" alt="Versão celular" width="200" height="410"></div></div><p><small>PÁGINA 10</small>Página de Obrigado</p></div></div>
+      <button class="seta prox" aria-label="Próxima" onclick="rolar(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <p class="dica">Arraste para o lado para ver as 10 páginas →</p>
+  </div>
+</section>
+
+<!-- 4. DOR -->
+<section class="cinza">
+  <div class="w c">
+    <p class="kicker">Eu sei...</p>
+    <h2 class="h2 estreito">Você precisa de uma página para vender, captar clientes ou subir uma campanha, mas <mark>sempre trava</mark> na hora de fazer, não é mesmo?</h2>
+    <p class="sub" style="margin-top:20px">Por isso, toda vez que precisa de uma página, você pensa:</p>
+    <img class="dores" loading="lazy" src="/imagens/paginas-prontas/pp-fde0413002.webp" alt="Pensamentos de quem trava na hora de criar uma página" width="800" height="862">
+    <p class="forte">Isso só acontece porque você ainda não tem uma <mark>página pronta e profissional</mark> para só trocar as informações e colocar no ar.</p>
+  </div>
+</section>
+
+<!-- 5. AGITAÇÃO -->
+<section class="escuro agita">
+  <div class="w grid">
+    <img class="foto-apoio" loading="lazy" src="/imagens/paginas-prontas/pp-9dbfcb84fb.webp" alt="Mulher cansada em frente ao notebook à noite" width="800" height="533">
+    <div>
+      <p>Você não aguenta mais <b>perder tempo e dinheiro</b> tentando montar uma página, enquanto outras pessoas sobem páginas bonitas em poucas horas e já estão vendendo.</p>
+      <p>Estou certa?</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PERGUNTA -->
+<section class="pergunta branco">
+  <div class="w c estreito">
+    <p class="kicker">Agora eu te pergunto...</p>
+    <p class="q">Se você pudesse <span class="hl">copiar 10 páginas profissionais prontas</span> e só pedir para a IA <span class="hl">colocar a sua marca</span>, isso seria interessante para você?</p>
+    <p class="sim">Se a sua resposta for <b>"SIM"</b>, as Páginas Prontas para Personalizar com IA são para você.</p>
+  </div>
+</section>
+
+<!-- 7. PASSOS -->
+<section class="cinza">
+  <div class="w c">
+    <h2 class="h2 estreito">Esses são os <mark>4 passos</mark> para você usar as Páginas Prontas para Personalizar com IA</h2>
+    <div class="passos">
+      <div class="passo"><img class="passo-img" loading="lazy" src="/imagens/paginas-prontas/pp-5baa4a2652.webp" alt="Escolha a página" width="480" height="320"><div class="n">1</div><h3>Escolha a página</h3><p>Captura, vendas, WhatsApp, evento, link na bio e outras.</p></div>
+      <div class="passo"><img class="passo-img" loading="lazy" src="/imagens/paginas-prontas/pp-9a03d5d203.webp" alt="Envie a página para a IA" width="480" height="320"><div class="n">2</div><h3>Envie para a IA</h3><p>Mande o arquivo da página junto com o Prompt Mestre.</p></div>
+      <div class="passo"><img class="passo-img" loading="lazy" src="/imagens/paginas-prontas/pp-64fe2bb98e.webp" alt="Responda as perguntas da IA" width="480" height="320"><div class="n">3</div><h3>Responda as perguntas</h3><p>A IA pede sua logo, cores e textos e devolve a página pronta.</p></div>
+      <div class="passo"><img class="passo-img" loading="lazy" src="/imagens/paginas-prontas/pp-505472ae8e.webp" alt="Publique a página" width="480" height="320"><div class="n">4</div><h3>Publique de graça</h3><p>Coloque no ar com link próprio, sem pagar hospedagem.</p></div>
+    </div>
+    <p class="faixa-tempo">[ TUDO ISSO EM POUCOS MINUTOS ]</p>
+  </div>
+</section>
+
+<!-- 8. BENEFÍCIOS -->
+<section class="benef branco">
+  <div class="w grid">
+    <div>
+      <h2 class="h2" style="margin-bottom:24px">Com as Páginas Prontas para Personalizar com IA você vai:</h2>
+      <ul class="lista-check">
+        <li>Ter sua página profissional pronta ainda hoje</li>
+        <li>Parar de depender de designer ou programador</li>
+        <li>Personalizar tudo com a IA que você já usa</li>
+        <li>Subir a página da campanha no mesmo dia</li>
+        <li>Receber os contatos direto onde você trabalha</li>
+        <li>Colocar a página no ar sem pagar hospedagem</li>
+      </ul>
+    </div>
+    <img class="benef-img" loading="lazy" src="/imagens/paginas-prontas/pp-e01e86f23a.webp" alt="Páginas prontas no notebook e no celular" width="640" height="960">
+  </div>
+</section>
+
+<!-- 9. FAIXA: E TEM MAIS -->
+<div class="escuro faixa">
+  <div class="w">
+    <span class="mini">E tem mais!</span>
+    <h2 class="h2 estreito">Veja tudo que você vai receber com as Páginas Prontas para Personalizar com IA</h2>
+  </div>
+</div>
+
+<!-- 10. ENTREGÁVEIS -->
+<section class="cinza">
+  <div class="w itens">
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-b891d68894.webp" alt="Mockup 10 Páginas Prontas em HTML" width="720" height="464"><div><span class="tg">Entregável 1</span><h3>10 Páginas Prontas em HTML</h3><p>Você terá acesso a 10 páginas profissionais para os usos mais comuns: captura, vendas, VSL, link na bio, cartão de visita digital, serviço local, agendamento pelo WhatsApp, evento, aplicação e obrigado. Todas já funcionam no computador e no celular.</p></div></div>
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-c142d1293e.webp" alt="Mockup Prompt Mestre" width="720" height="464"><div><span class="tg">Entregável 2</span><h3>Prompt Mestre para cada página</h3><p>Você vai receber um prompt pronto para cada página. É só enviar para a IA junto com a página e os seus arquivos e informações. A IA troca textos, cores, fotos e logo pelos da sua marca.</p></div></div>
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-2537de79a8.webp" alt="Mockup Manual Como Personalizar sua Página com IA" width="720" height="464"><div><span class="tg">Entregável 3</span><h3>Manual Como Personalizar sua Página com IA</h3><p>Um passo a passo simples mostrando exatamente o que fazer, do primeiro prompt até a página pronta, mesmo que você nunca tenha mexido com HTML.</p></div></div>
+  </div>
+</section>
+
+<!-- 11. FAIXA: AINDA NÃO ACABOU -->
+<div class="escuro faixa">
+  <div class="w">
+    <span class="mini">Ainda não acabou!</span>
+    <h2 class="h2">Você também vai receber:</h2>
+  </div>
+</div>
+
+<!-- 12. BÔNUS -->
+<section class="cinza">
+  <div class="w itens">
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-bc704fe7e9.webp" alt="Mockup Kit de Ajustes Rápidos" width="720" height="464"><div><span class="tg bonus">Bônus 1</span><h3>Kit de Ajustes Rápidos</h3><p>Frases prontas para copiar e colar na IA quando você quiser trocar um texto, uma cor ou um botão, sem refazer a página inteira.</p></div></div>
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-84cd7cb6aa.webp" alt="Mockup Nenhum Lead Perdido" width="720" height="464"><div><span class="tg bonus">Bônus 2</span><h3>Nenhum Lead Perdido</h3><p>Você vai aprender a conectar o formulário da sua página para os contatos chegarem direto onde você trabalha, como planilha, e-mail ou CRM.</p></div></div>
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-101e460a06.webp" alt="Mockup Prompt Turbo PageSpeed" width="720" height="464"><div><span class="tg bonus">Bônus 3</span><h3>Prompt Turbo PageSpeed</h3><p>Um prompt que deixa sua página mais leve e rápida, o que melhora a experiência de quem visita e ajuda o desempenho dos seus anúncios.</p></div></div>
+    <div class="item"><img class="mock-item" loading="lazy" src="/imagens/paginas-prontas/pp-e527c6dc92.webp" alt="Mockup Publique sua Página de Graça" width="720" height="464"><div><span class="tg bonus">Bônus 4</span><h3>Publique sua Página de Graça</h3><p>Passo a passo para colocar sua página no ar com link próprio, sem pagar hospedagem, mesmo que você nunca tenha publicado um site.</p></div></div>
+  </div>
+</section>
+
+<!-- 13. PARA QUEM É -->
+<section class="escuro quem">
+  <div class="w grid">
+    <div>
+      <h2 class="h2" style="margin-bottom:24px">As Páginas Prontas para Personalizar com IA são para você que:</h2>
+      <ul class="lista-check">
+        <li>Precisa de uma página, mas trava na hora de criar</li>
+        <li>Está cansado de pagar caro por página e esperar semanas</li>
+        <li>É gestor de tráfego e precisa subir a página da campanha rápido</li>
+        <li>É social media, web designer ou tem agência e quer entregar mais em menos tempo</li>
+        <li>Tem um negócio e quer sua própria página sem mensalidade</li>
+        <li>Já tentou criar com IA do zero e o resultado ficou amador</li>
+      </ul>
+    </div>
+    <img class="foto-apoio" loading="lazy" src="/imagens/paginas-prontas/pp-78228c8127.webp" alt="Homem sorrindo mostrando uma página pronta no notebook" width="640" height="960">
+  </div>
+</section>
+
+<!-- 14. ENFIM -->
+<section class="enfim branco">
+  <div class="w c estreito">
+    <p class="k">Enfim...</p>
+    <p class="q">Se você quer ter uma página profissional no ar ainda hoje, sem depender de ninguém...</p>
+    <p class="r">As Páginas Prontas para Personalizar com IA são para você!</p>
+  </div>
+</section>
+
+<!-- 15. RECAPITULANDO -->
+<section class="cinza">
+  <div class="w c">
+    <p class="kicker">Recapitulando...</p>
+    <h2 class="h2 estreito">Veja tudo que você vai receber nas Páginas Prontas para Personalizar com IA</h2>
+    <div class="recap">
+      <div class="l"><span>10 Páginas Prontas em HTML</span><s>R$ 647,00</s></div>
+      <div class="l"><span>Prompt Mestre para cada página</span><s>R$ 147,00</s></div>
+      <div class="l"><span>Manual Como Personalizar sua Página com IA</span><s>R$ 47,00</s></div>
+      <div class="l"><span>Bônus 1: Kit de Ajustes Rápidos</span><s>R$ 47,00</s></div>
+      <div class="l"><span>Bônus 2: Nenhum Lead Perdido</span><s>R$ 67,00</s></div>
+      <div class="l"><span>Bônus 3: Prompt Turbo PageSpeed</span><s>R$ 57,00</s></div>
+      <div class="l"><span>Bônus 4: Publique sua Página de Graça</span><s>R$ 67,00</s></div>
+      <div class="tot">Tudo isso deveria custar: <s>R$ 1.079,00</s></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16. FAIXA: MAS HOJE -->
+<div class="escuro faixa">
+  <div class="w">
+    <h2 class="h2 estreito">Mas hoje você tem acesso às Páginas Prontas para Personalizar com IA junto com <mark>todos os bônus</mark> por apenas:</h2>
+  </div>
+</div>
+
+<!-- 17. PREÇO -->
+<section class="cinza" id="oferta">
+  <div class="w">
+    <div class="preco-box">
+      <img class="kit-img" loading="lazy" src="/imagens/paginas-prontas/pp-38db20da64.webp" alt="Kit completo Páginas Prontas para Personalizar com IA" width="900" height="600">
+      <p class="de">De <s>R$ 1.079,00</s> por apenas:</p>
+      <p class="vista"><small>R$</small>47<em>à vista</em></p>
+      <p class="parc">ou 6x de R$ 8,82</p>
+      <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
+      <div class="selos-pag">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Compra 100% segura</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l4 4-4 4-4-4z"/><path d="M12 14l4 4-4 4-4-4z"/><path d="M2 12l4-4 4 4-4 4z"/><path d="M14 12l4-4 4 4-4 4z"/></svg>Pix</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Cartão de crédito</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Garantia de 7 dias</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Acesso imediato</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18. COMO RECEBE -->
+<section class="branco">
+  <div class="w c">
+    <h2 class="h2 estreito">Compre agora e receba seu acesso no <span style="white-space:nowrap">e-mail</span> <mark>imediatamente!</mark></h2>
+    <div class="receber">
+      <div><div class="ic">📩</div><h3>Acesse seu e-mail</h3><p>Assim que finalizar a compra, você recebe seu acesso no e-mail.</p></div>
+      <div><div class="ic">📂</div><h3>Acesso ao produto</h3><p>Você recebe as 10 páginas, os prompts, o manual e todos os bônus na hora.</p></div>
+      <div><div class="ic">🚀</div><h3>Tudo pronto!</h3><p>Agora é só escolher a página, colar o prompt na IA e colocar sua página no ar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19. FAIXA: DUAS ESCOLHAS -->
+<div class="escuro faixa">
+  <div class="w"><h2 class="h2">Agora você tem duas escolhas:</h2></div>
+</div>
+
+<!-- 20. DUAS OPÇÕES -->
+<section class="cinza">
+  <div class="w c">
+    <div class="opcoes">
+      <div class="op ruim">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+        <span class="rot">Opção 1</span><h3>Continuar travado</h3><p>Ignorar tudo o que você viu aqui, continuar pagando caro, esperando semanas ou perdendo horas com páginas que ficam com cara de amadoras.</p>
+      </div>
+      <div class="op boa">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+        <span class="rot">Opção 2</span><h3>Copiar e colar as páginas prontas</h3><p>Acessar as Páginas Prontas para Personalizar com IA, escolher o modelo, colar o prompt e ter sua página profissional no ar ainda hoje.</p>
+      </div>
+    </div>
+    <p class="inteligente">Eu sei (e você também sabe): a opção 2 é a mais inteligente.</p>
+    <p class="sub" style="margin-top:0">Então clique no botão abaixo e acesse agora mesmo as Páginas Prontas para Personalizar com IA.</p>
+    <div class="sp"></div>
+    <a href="#oferta" class="btn">Quero minhas páginas</a>
+  </div>
+</section>
+
+<!-- 21. CRIADORA -->
+<section class="escuro autor">
+  <div class="w grid">
+    <img class="foto-apoio foto-ketlin" loading="lazy" src="/imagens/paginas-prontas/pp-064c5da093.webp" alt="Ketlin Espinoza" width="640" height="800">
+    <div>
+      <h2 class="h2">A criadora das Páginas Prontas para Personalizar com IA é <mark>Ketlin Espinoza</mark>.</h2>
+      <p>Ketlin é designer e web designer há <b>10 anos</b> e cria páginas para gestores de tráfego, agências e empresas.</p>
+      <p>Depois de ver muita gente perdendo tempo e dinheiro esperando uma página simples, ela juntou as estruturas que mais usa no dia a dia com prompts que fazem a IA personalizar tudo por você.</p>
+      <p>Agora, ela entrega essas páginas prontas para você <b>copiar, colar e colocar no ar ainda hoje</b>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 22. PREÇO (REPETIDO) -->
+<section class="cinza">
+  <div class="w">
+    <div class="preco-box">
+      <img class="kit-img kit-copia" loading="lazy" src="" alt="Kit completo Páginas Prontas para Personalizar com IA" width="900" height="600">
+      <p class="de">De <s>R$ 1.079,00</s> por apenas:</p>
+      <p class="vista"><small>R$</small>47<em>à vista</em></p>
+      <p class="parc">ou 6x de R$ 8,82</p>
+      <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
+      <div class="selos-pag">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Compra 100% segura</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l4 4-4 4-4-4z"/><path d="M12 14l4 4-4 4-4-4z"/><path d="M2 12l4-4 4 4-4 4z"/><path d="M14 12l4-4 4 4-4 4z"/></svg>Pix</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Cartão de crédito</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Garantia de 7 dias</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Acesso imediato</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 23. FAQ -->
+<section class="branco">
+  <div class="w c">
+    <h2 class="h2">Perguntas frequentes</h2>
+    <div class="faq">
+      <details><summary>Qual é a forma de pagamento?</summary><p>Você pode fazer o pagamento pelo Pix ou cartão de crédito.</p></details>
+      <details><summary>O pagamento é seguro?</summary><p>Sim. O pagamento é processado por uma plataforma segura e seus dados ficam protegidos.</p></details>
+      <details><summary>Funciona pra mim?</summary><p>Sim. Se você consegue copiar, colar e responder perguntas, você consegue usar. Não precisa saber design nem programação.</p></details>
+      <details><summary>Qual IA eu preciso usar?</summary><p>Funciona no ChatGPT, no Gemini ou no Claude. Você pode usar a que já tem, inclusive nos planos gratuitos.</p></details>
+      <details><summary>Preciso pagar hospedagem?</summary><p>Não. O Bônus 4 mostra como publicar sua página de graça, com link próprio.</p></details>
+      <details><summary>Tem garantia?</summary><p>Sim. Você tem 7 dias de garantia. Se não gostar, é só pedir o reembolso dentro desse prazo.</p></details>
+      <details><summary>Como vou acessar as páginas?</summary><p>Assim que a compra for aprovada, você recebe o acesso no seu e-mail. No Pix, a liberação é imediata.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 24. RODAPÉ -->
+<footer class="rodape">
+  <div class="w">
+    <img src="/imagens/paginas-prontas/pp-1f3ba5f23b.webp" alt="Páginas Prontas para Personalizar com IA" width="640" height="159">
+    <p class="duv">Tem alguma dúvida?</p>
+    <a class="zap" href="https://wa.me/5554999006742?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20as%20P%C3%A1ginas%20Prontas%20para%20Personalizar%20com%20IA." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm0-21.6C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7A11.8 11.8 0 0 0 12 23.8c6.5 0 11.8-5.3 11.8-11.8S18.5.2 12 .2z"/></svg>Fale comigo no WhatsApp</a>
+    <p class="disc">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Depois que você sair do Facebook, a responsabilidade não é deles e sim do nosso site. A compra deste material não garante nenhum tipo de resultado.</p>
+  </div>
+</footer>
+<div class="copy">Ketlin Espinoza · Design Gráfico & Web Design · Todos os Direitos Reservados ©</div>
+
+<script>
+function rolar(d){var g=document.getElementById('galeria');g.scrollBy({left:d*(g.querySelector('.print').offsetWidth+18),behavior:'smooth'})}
+document.querySelectorAll('.kit-copia').forEach(function(i){i.src=document.querySelector('.kit-img').src});
+</script>
+</body>
+</html>
