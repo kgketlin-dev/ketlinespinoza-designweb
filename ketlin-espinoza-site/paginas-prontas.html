@@ -606,6 +606,11 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
 
 <script>
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('vis',e.isIntersecting)})},{threshold:.35});document.querySelectorAll('.print').forEach(function(c){io.observe(c)})}
+/* Repassa UTMs e parâmetros de rastreio da URL para os links de checkout da Kiwify */
+(function(){var chaves=/^(utm_[a-z_]+|src|sck|fbclid|gclid|xcod)$/i,q=new URLSearchParams(location.search),par={};q.forEach(function(v,k){if(chaves.test(k)&&v)par[k]=v});
+try{if(Object.keys(par).length)sessionStorage.setItem('pp_utm',JSON.stringify(par));else par=JSON.parse(sessionStorage.getItem('pp_utm')||'{}')}catch(e){}
+if(!Object.keys(par).length)return;
+document.querySelectorAll('a[href*="kiwify.com.br"]').forEach(function(a){var u=new URL(a.href);Object.keys(par).forEach(function(k){if(!u.searchParams.has(k))u.searchParams.set(k,par[k])});a.href=u.toString()})})();
 function rolar(d){var g=document.getElementById('galeria');g.scrollBy({left:d*(g.querySelector('.print').offsetWidth+18),behavior:'smooth'})}
 document.querySelectorAll('.kit-copia').forEach(function(i){i.src=document.querySelector('.kit-img').src});
 </script>
