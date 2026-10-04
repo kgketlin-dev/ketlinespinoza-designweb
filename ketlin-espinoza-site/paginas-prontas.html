@@ -238,10 +238,10 @@ details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
 /* VITRINE: prévia desktop alta que rola pela página do template; celular estático no topo */
 @keyframes rolaprev{0%,8%{object-position:top}92%,100%{object-position:bottom}}
 .print .tela>picture img{aspect-ratio:3/4;object-position:top}
-.print.vis .tela>picture img{animation:rolaprev 16s ease-in-out infinite alternate}
+.print.vis .tela>picture img{animation:rolaprev 10s ease-in-out infinite alternate}
 @media (hover:hover) and (min-width:861px){
   .print.vis .tela>picture img{animation:none}
-  .print:hover .tela>picture img{animation:rolaprev 14s ease-in-out infinite alternate}
+  .print:hover .tela>picture img{animation:rolaprev 9s ease-in-out infinite alternate}
 }
 @media (min-width:1100px){
   .vitrine-sec .w{max-width:1260px}
