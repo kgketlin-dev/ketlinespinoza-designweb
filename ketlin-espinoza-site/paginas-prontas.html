@@ -79,6 +79,21 @@ mark{background:none;color:var(--roxo)}
 .selos{display:flex;flex-wrap:wrap;gap:8px}
 .selos span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borda);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:600;white-space:nowrap;line-height:1.2}
 .selos span::before{content:"✓";display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--roxo);color:#fff;font-size:10px;font-weight:800;flex:none}
+.cta-topo{margin-top:24px}
+.cta-topo .btn{max-width:420px}
+.cta-info{margin-top:10px;font-size:14px;color:var(--mut);font-weight:500;line-height:1.5}
+.cta-info b{color:var(--txt);font-weight:700}
+.cta-meio{margin-top:30px}
+
+/* DEMO (aparece sozinha quando o vídeo existir) */
+.demo video{display:block;width:100%;max-width:760px;margin:28px auto 0;border-radius:20px;background:#000;box-shadow:0 30px 60px -25px rgba(23,9,48,.55)}
+
+/* GARANTIA */
+.garantia{display:flex;gap:14px;align-items:center;text-align:left;margin-top:20px;padding:14px 16px;border:1px dashed var(--roxo);border-radius:16px;background:#faf5fe}
+.garantia .selo{flex:none;width:58px;height:58px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;text-align:center;font-weight:800;line-height:1;font-size:20px}
+.garantia .selo small{display:block;font-size:9px;letter-spacing:.06em;font-weight:700}
+.garantia p{font-size:14px;line-height:1.45;color:var(--mut);margin:0}
+.garantia p b{color:var(--txt)}
 
 /* 3. VITRINE (carrossel de prints) */
 .vitrine{position:relative;margin-top:32px}
@@ -165,7 +180,7 @@ mark{background:none;color:var(--roxo)}
 
 /* 15. RECAPITULANDO */
 .recap{max-width:680px;margin:30px auto 0;background:#fff;border:1px solid var(--borda);border-radius:22px;overflow:hidden;text-align:left}
-.recap .l{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:15px 22px;border-bottom:1px solid #f0ebf4;font-weight:500;line-height:1.4}
+.recap .l{display:flex;justify-content:flex-start;gap:14px;align-items:center;padding:15px 22px;border-bottom:1px solid #f0ebf4;font-weight:500;line-height:1.4}
 .recap .l span{display:flex;gap:10px;align-items:flex-start}
 .recap .l span::before{content:"✓";color:var(--roxo);font-weight:800}
 .recap .l s{color:var(--vermelho);white-space:nowrap;font-weight:600}
@@ -319,6 +334,10 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
         <span>Qualquer IA</span>
         <span>Publicação grátis</span>
       </div>
+      <div class="cta-topo">
+        <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
+        <p class="cta-info"><b>R$ 47 à vista</b> ou 6x de R$ 8,82 · Acesso imediato · 7 dias de garantia</p>
+      </div>
     </div>
     <img class="hero-img" src="/imagens/paginas-prontas/pp-d163bc916a.webp" srcset="/imagens/paginas-prontas/pp-d163bc916a-540.webp 540w, /imagens/paginas-prontas/pp-d163bc916a.webp 900w" sizes="(max-width:520px) 90vw, (max-width:860px) 480px, 436px" alt="Páginas Prontas para Personalizar com IA no notebook e no celular" width="900" height="1041" fetchpriority="high">
   </div>
@@ -334,6 +353,21 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
       <button class="seta prox" aria-label="Próxima" onclick="rolar(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
     <p class="dica">Arraste para o lado para ver as 10 páginas →</p>
+    <div class="cta-meio">
+      <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero as 10 páginas por R$ 47</a>
+      <p class="cta-info">Pix ou cartão · Acesso imediato no e-mail · 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3b. DEMO EM VÍDEO
+     Fica escondida até existir o arquivo /imagens/paginas-prontas/demo.mp4 (vídeo curto, 15 a 30s, vertical ou horizontal).
+     Opcional: capa em /imagens/paginas-prontas/demo-capa.webp. Basta subir os arquivos que a seção aparece sozinha. -->
+<section class="cinza demo" id="demo" hidden>
+  <div class="w c">
+    <h2 class="h2 estreito">Veja a IA transformando uma <mark>página pronta</mark> na sua marca</h2>
+    <p class="sub estreito">Template + Prompt Mestre + seu logo. Em poucos minutos a página está com a sua cara.</p>
+    <video src="/imagens/paginas-prontas/demo.mp4" poster="/imagens/paginas-prontas/demo-capa.webp" controls muted playsinline preload="metadata" onloadedmetadata="this.closest('section').hidden=false"></video>
   </div>
 </section>
 
@@ -468,14 +502,14 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
     <p class="kicker">Recapitulando...</p>
     <h2 class="h2 estreito">Veja tudo que você vai receber nas Páginas Prontas para Personalizar com IA</h2>
     <div class="recap">
-      <div class="l"><span>10 Páginas Prontas em HTML</span><s>R$ 647,00</s></div>
-      <div class="l"><span>Prompt Mestre para cada página</span><s>R$ 147,00</s></div>
-      <div class="l"><span>Manual + Videoaula Como Personalizar sua Página com IA</span><s>R$ 47,00</s></div>
-      <div class="l"><span>Bônus 1: Kit de Ajustes Rápidos</span><s>R$ 47,00</s></div>
-      <div class="l"><span>Bônus 2: Nenhum Lead Perdido</span><s>R$ 67,00</s></div>
-      <div class="l"><span>Bônus 3: Prompt Turbo PageSpeed</span><s>R$ 57,00</s></div>
-      <div class="l"><span>Bônus 4: Publique sua Página de Graça</span><s>R$ 67,00</s></div>
-      <div class="tot">Tudo isso deveria custar: <s>R$ 1.079,00</s></div>
+      <div class="l"><span>10 Páginas Prontas em HTML</span></div>
+      <div class="l"><span>Prompt Mestre para cada página</span></div>
+      <div class="l"><span>Manual + Videoaula Como Personalizar sua Página com IA</span></div>
+      <div class="l"><span>Bônus 1: Kit de Ajustes Rápidos</span></div>
+      <div class="l"><span>Bônus 2: Nenhum Lead Perdido</span></div>
+      <div class="l"><span>Bônus 3: Prompt Turbo PageSpeed</span></div>
+      <div class="l"><span>Bônus 4: Publique sua Página de Graça</span></div>
+      <div class="tot">Uma única página feita por designer custa de <b style="color:#ff8a92;white-space:nowrap">R$ 300 a R$ 800</b></div>
     </div>
   </div>
 </section>
@@ -483,7 +517,7 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
 <!-- 16. FAIXA: MAS HOJE -->
 <div class="escuro faixa">
   <div class="w">
-    <h2 class="h2 estreito">Mas hoje você tem acesso às Páginas Prontas para Personalizar com IA junto com <mark>todos os bônus</mark> por apenas:</h2>
+    <h2 class="h2 estreito">Aqui você leva as <mark>10 páginas</mark>, os prompts e todos os bônus por apenas:</h2>
   </div>
 </div>
 
@@ -492,7 +526,7 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
   <div class="w">
     <div class="preco-box">
       <img class="kit-img" loading="lazy" src="/imagens/paginas-prontas/pp-38db20da64.webp" alt="Kit completo Páginas Prontas para Personalizar com IA" width="900" height="600">
-      <p class="de">De <s>R$ 1.079,00</s> por apenas:</p>
+      <p class="de">10 páginas + prompts + manual + 4 bônus por:</p>
       <p class="vista"><small>R$</small>47<em>à vista</em></p>
       <p class="parc">ou 6x de R$ 8,82</p>
       <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
@@ -502,6 +536,10 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Cartão de crédito</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.2 7.8a4.2 4.2 0 1 1 0 8.4c-2.3 0-3.8-1.9-6.2-4.2-2.4-2.3-3.9-4.2-6.2-4.2a4.2 4.2 0 1 0 0 8.4c2.3 0 3.8-1.9 6.2-4.2 2.4-2.3 3.9-4.2 6.2-4.2z"/></svg>Acesso Vitalício</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Acesso imediato</span>
+      </div>
+      <div class="garantia">
+        <div class="selo">7<small>DIAS</small></div>
+        <p><b>Garantia incondicional de 7 dias.</b> Se não gostar, peça o reembolso dentro do prazo e recebe 100% do valor de volta.</p>
       </div>
     </div>
   </div>
@@ -561,8 +599,8 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
 <section class="cinza">
   <div class="w">
     <div class="preco-box">
-      <img class="kit-img kit-copia" loading="lazy" src="" alt="Kit completo Páginas Prontas para Personalizar com IA" width="900" height="600">
-      <p class="de">De <s>R$ 1.079,00</s> por apenas:</p>
+      <img class="kit-img" loading="lazy" src="/imagens/paginas-prontas/pp-38db20da64.webp" alt="Kit completo Páginas Prontas para Personalizar com IA" width="900" height="600">
+      <p class="de">10 páginas + prompts + manual + 4 bônus por:</p>
       <p class="vista"><small>R$</small>47<em>à vista</em></p>
       <p class="parc">ou 6x de R$ 8,82</p>
       <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
@@ -572,6 +610,10 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Cartão de crédito</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.2 7.8a4.2 4.2 0 1 1 0 8.4c-2.3 0-3.8-1.9-6.2-4.2-2.4-2.3-3.9-4.2-6.2-4.2a4.2 4.2 0 1 0 0 8.4c2.3 0 3.8-1.9 6.2-4.2 2.4-2.3 3.9-4.2 6.2-4.2z"/></svg>Acesso Vitalício</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Acesso imediato</span>
+      </div>
+      <div class="garantia">
+        <div class="selo">7<small>DIAS</small></div>
+        <p><b>Garantia incondicional de 7 dias.</b> Se não gostar, peça o reembolso dentro do prazo e recebe 100% do valor de volta.</p>
       </div>
     </div>
   </div>
@@ -612,7 +654,6 @@ try{if(Object.keys(par).length)sessionStorage.setItem('pp_utm',JSON.stringify(pa
 if(!Object.keys(par).length)return;
 document.querySelectorAll('a[href*="kiwify.com.br"]').forEach(function(a){var u=new URL(a.href);Object.keys(par).forEach(function(k){if(!u.searchParams.has(k))u.searchParams.set(k,par[k])});a.href=u.toString()})})();
 function rolar(d){var g=document.getElementById('galeria');g.scrollBy({left:d*(g.querySelector('.print').offsetWidth+18),behavior:'smooth'})}
-document.querySelectorAll('.kit-copia').forEach(function(i){i.src=document.querySelector('.kit-img').src});
 </script>
 </body>
 </html>
