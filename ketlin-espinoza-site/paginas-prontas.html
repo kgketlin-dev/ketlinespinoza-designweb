@@ -83,7 +83,7 @@ mark{background:none;color:var(--roxo)}
 .selos{display:flex;flex-wrap:wrap;gap:8px}
 .selos span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borda);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:600;white-space:nowrap;line-height:1.2}
 .selos span::before{content:"✓";display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--roxo);color:#fff;font-size:10px;font-weight:800;flex:none}
-.cta-topo{margin-top:24px}
+.cta-topo{margin-top:0;text-align:center}
 .cta-topo .btn{max-width:420px}
 .cta-info{margin-top:10px;font-size:14px;color:var(--mut);font-weight:500;line-height:1.5}
 .cta-info b{color:var(--txt);font-weight:700}
@@ -339,15 +339,15 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
         <span>Qualquer IA</span>
         <span>Publicação grátis</span>
       </div>
-      <div class="cta-topo">
-        <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
-        <p class="cta-info"><b>R$ 47 à vista</b> ou 6x de R$ 8,82 · Acesso imediato · 7 dias de garantia</p>
-      </div>
     </div>
     <picture class="hero-comparativo">
       <source media="(max-width:760px)" srcset="/imagens/paginas-prontas/antes-depois-celular-v2.webp 700w, /imagens/paginas-prontas/antes-depois-celular-v2-2x.webp 1400w" sizes="(max-width:760px) calc(100vw - 32px)" width="700" height="1250">
       <img src="/imagens/paginas-prontas/antes-depois-desktop-v2.webp" srcset="/imagens/paginas-prontas/antes-depois-desktop-v2.webp 1214w, /imagens/paginas-prontas/antes-depois-desktop-v2-2x.webp 2428w" sizes="(max-width:1060px) calc(100vw - 40px), 1000px" alt="Antes do kit: página genérica que leva horas para criar. Depois do kit: página profissional pronta em minutos" width="1214" height="700" fetchpriority="high">
     </picture>
+    <div class="cta-topo">
+        <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
+        <p class="cta-info"><b>R$ 47 à vista</b> ou 6x de R$ 8,82 · Acesso imediato · 7 dias de garantia</p>
+      </div>
   </div>
 </header>
 
@@ -361,10 +361,6 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
       <button class="seta prox" aria-label="Próxima" onclick="rolar(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
     <p class="dica">Arraste para o lado para ver as 10 páginas →</p>
-    <div class="cta-meio">
-      <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero as 10 páginas por R$ 47</a>
-      <p class="cta-info">Pix ou cartão · Acesso imediato no e-mail · 7 dias de garantia</p>
-    </div>
   </div>
 </section>
 
