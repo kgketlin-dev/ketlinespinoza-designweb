@@ -72,9 +72,13 @@ mark{background:none;color:var(--roxo)}
 
 /* 2. HERO */
 .hero{background:var(--claro);padding:52px 0 60px}
-.hero .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+.hero .grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;text-align:center}
+.hero .grid>div{max-width:860px;margin:0 auto}
+.hero .selos{justify-content:center}
+.hero-ad{display:block;width:100%;max-width:1000px;margin:0 auto}
+.hero-ad img{display:block;width:100%;height:auto}
 .h1{font-size:clamp(28px,4.2vw,44px);font-weight:800;line-height:1.2}
-.hero-img{width:100%;height:auto;display:block;border-radius:24px;box-shadow:0 30px 60px -25px rgba(23,9,48,.55)}
+
 .hero .sub{margin:16px 0 22px}
 .selos{display:flex;flex-wrap:wrap;gap:8px}
 .selos span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--borda);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:600;white-space:nowrap;line-height:1.2}
@@ -268,7 +272,7 @@ details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
 @media (prefers-reduced-motion:reduce){.print .tela>picture img{animation:none!important}}
 @media (min-width:1100px){
   .hero .w{max-width:1180px}
-  .hero .grid{grid-template-columns:1fr 436px}
+  .hero .grid{grid-template-columns:1fr}
   .selos{flex-wrap:nowrap}
   .pergunta .w.estreito{max-width:960px}
   .pergunta .sim{white-space:nowrap}
@@ -291,7 +295,7 @@ details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
   .print{flex-basis:calc((100% - 18px)/2)}
   .autor .img{max-width:360px;margin:0 auto}
   .quem .foto-apoio,.foto-ketlin{max-width:360px;margin:0 auto}
-  .hero-img{max-width:480px;margin:0 auto}
+  .hero-ad{max-width:560px}
 }
 @media (max-width:520px){
   section{padding:46px 0}
@@ -340,7 +344,10 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
         <p class="cta-info"><b>R$ 47 à vista</b> ou 6x de R$ 8,82 · Acesso imediato · 7 dias de garantia</p>
       </div>
     </div>
-    <img class="hero-img" src="/imagens/paginas-prontas/pp-d163bc916a.webp" srcset="/imagens/paginas-prontas/pp-d163bc916a-540.webp 540w, /imagens/paginas-prontas/pp-d163bc916a.webp 900w" sizes="(max-width:520px) 90vw, (max-width:860px) 480px, 436px" alt="Páginas Prontas para Personalizar com IA no notebook e no celular" width="900" height="1041" fetchpriority="high">
+    <picture class="hero-ad">
+      <source media="(max-width:760px)" srcset="/imagens/paginas-prontas/antes-depois-celular.webp 700w, /imagens/paginas-prontas/antes-depois-celular-2x.webp 1400w" sizes="(max-width:760px) calc(100vw - 32px)" width="700" height="1250">
+      <img src="/imagens/paginas-prontas/antes-depois-desktop.webp" srcset="/imagens/paginas-prontas/antes-depois-desktop.webp 1214w, /imagens/paginas-prontas/antes-depois-desktop-2x.webp 2428w" sizes="(max-width:1060px) calc(100vw - 40px), 1000px" alt="Antes do kit: página genérica que leva horas para criar. Depois do kit: página profissional pronta em minutos" width="1214" height="700" fetchpriority="high">
+    </picture>
   </div>
 </header>
 
