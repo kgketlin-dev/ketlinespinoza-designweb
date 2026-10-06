@@ -3334,10 +3334,19 @@
             type: "text",
             ac: "name",
             min: 2,
-            say: () => ["Seu briefing está quase pronto! <b>Como posso te chamar?</b>", "Seu WhatsApp não precisa digitar: no final você recebe um link pra enviar a demanda direto pra Ketlin."],
+            say: () => ["Seu briefing está quase pronto! <b>Como posso te chamar?</b>"],
             ph: "Nome e sobrenome",
             err: "Me diz seu nome pra eu identificar sua demanda.",
             label: "Nome",
+          },
+          {
+            key: "whatsapp",
+            stage: 4,
+            type: "tel",
+            say: () => [`Prazer, ${first()}! Qual o seu <b>WhatsApp com DDD</b>?`, "É por ele que a Ketlin confirma a sua demanda."],
+            ph: "(00) 00000-0000",
+            err: "Digite um WhatsApp válido com DDD, ex: (48) 99999-9999.",
+            label: "WhatsApp",
           },
           {
             key: "empresa",
@@ -3911,6 +3920,7 @@
             ["Arquivos", files.length ? `${files.length} arquivo(s)` + (ans.arquivosNota ? " + observação" : "") : ans.arquivosNota ? "Observação enviada" : "Nenhum", "arquivos"],
             ["Referências", d.referencias, "referencias"],
             ["Nome", d.nome, "nome"],
+            ["WhatsApp", d.whatsapp, "whatsapp"],
             ["Empresa", d.empresa, "empresa"],
             ["Perfil", d.perfil, "perfil"],
           ]
