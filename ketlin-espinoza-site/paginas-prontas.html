@@ -101,7 +101,7 @@ mark{background:none;color:var(--roxo)}
 .ad-lista{display:grid;gap:34px;margin-top:34px}
 .ad-par{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
 .ad-par figure{margin:0;background:#fff;border:1px solid var(--borda);border-radius:16px;overflow:hidden;box-shadow:0 16px 34px -22px rgba(23,9,48,.45)}
-.ad-par img{display:block;width:100%;height:auto;aspect-ratio:2.21/1;object-fit:cover;object-position:top}
+.ad-par img{display:block;width:100%;height:auto}
 .ad-par figcaption{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .ad-par .antes figcaption{color:var(--mut)}
 .ad-par .antes figcaption::before{content:"";width:9px;height:9px;border-radius:50%;background:#c4b8d2}
@@ -377,7 +377,6 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
 <section class="escuro demo" id="demo">
   <div class="w c">
     <h2 class="h2 estreito">Veja a IA transformando uma <mark>página pronta</mark> em uma página com a cara da marca</h2>
-    <p class="sub estreito">Trecho real da videoaula: template + Prompt Mestre + logo e fotos. A IA fez o resto.</p>
     <div class="tela-demo">
       <video autoplay muted loop playsinline preload="metadata" poster="/imagens/paginas-prontas/demo-capa.webp" width="1080" height="540" aria-label="Demonstração: a IA personalizando uma página pronta">
         <source src="/imagens/paginas-prontas/demo.webm" type="video/webm">
@@ -421,8 +420,8 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
       <div>
         <p class="ad-leg">Página de Vendas para um treinamento<small>Personalizada no ChatGPT</small></p>
         <div class="ad-par">
-          <figure class="antes"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-antes.webp" alt="Template da Página de Vendas antes da personalização" width="640" height="290"><figcaption>Antes: o template</figcaption></figure>
-          <figure class="depois"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-depois.webp" alt="A mesma Página de Vendas depois da IA, com nova identidade visual, foto e textos" width="1200" height="542"><figcaption>Depois: com a marca</figcaption></figure>
+          <figure class="antes"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-antes.webp" alt="Template da Página de Vendas antes da personalização" width="640" height="308"><figcaption>Antes: o template</figcaption></figure>
+          <figure class="depois"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-depois.webp" alt="A mesma Página de Vendas depois da IA, com nova identidade visual, foto e textos" width="1200" height="577"><figcaption>Depois: com a marca</figcaption></figure>
         </div>
       </div>
     </div>
