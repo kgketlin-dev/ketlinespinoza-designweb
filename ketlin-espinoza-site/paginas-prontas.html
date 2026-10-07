@@ -89,8 +89,32 @@ mark{background:none;color:var(--roxo)}
 .cta-info b{color:var(--txt);font-weight:700}
 .cta-meio{margin-top:30px}
 
-/* DEMO (aparece sozinha quando o vídeo existir) */
-.demo video{display:block;width:100%;max-width:760px;margin:28px auto 0;border-radius:20px;background:#000;box-shadow:0 30px 60px -25px rgba(23,9,48,.55)}
+/* AUTORIDADE (linha no hero) */
+.autoridade{display:inline-flex;align-items:center;gap:12px;margin:0 auto 22px;padding:8px 18px 8px 8px;background:#fff;border:1px solid var(--borda);border-radius:60px;text-align:left;font-size:14px;line-height:1.4;color:var(--mut);max-width:620px}
+.autoridade img{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover}
+.autoridade b{color:var(--txt);font-weight:700}
+
+/* DEMO (vídeo em loop, funciona como GIF) */
+.demo .tela-demo{max-width:900px;margin:28px auto 0;border-radius:18px;overflow:hidden;background:#0d1426;box-shadow:0 30px 60px -25px rgba(23,9,48,.55);border:6px solid #fff}
+.demo video{display:block;width:100%;height:auto;aspect-ratio:2/1;background:#0d1426}
+.demo .passinhos{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+.demo .passinhos span{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--borda);border-radius:99px;padding:7px 14px 7px 7px;font-size:13.5px;font-weight:600;line-height:1.2;color:var(--txt)}
+.demo .passinhos i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--turquesa);color:var(--escuro);font-size:12px;font-weight:800}
+.nota{font-size:12.5px;color:var(--mut);margin-top:14px}
+
+/* ANTES E DEPOIS */
+.ad-lista{display:grid;gap:34px;margin-top:34px}
+.ad-par{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
+.ad-par figure{margin:0;background:#fff;border:1px solid var(--borda);border-radius:16px;overflow:hidden;box-shadow:0 16px 34px -22px rgba(23,9,48,.45)}
+.ad-par img{display:block;width:100%;height:auto;aspect-ratio:2.21/1;object-fit:cover;object-position:top}
+.ad-par figcaption{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ad-par .antes figcaption{color:var(--mut)}
+.ad-par .antes figcaption::before{content:"";width:9px;height:9px;border-radius:50%;background:#c4b8d2}
+.ad-par .depois{border:2px solid var(--roxo)}
+.ad-par .depois figcaption{color:var(--roxo)}
+.ad-par .depois figcaption::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--roxo)}
+.ad-leg{font-weight:600;font-size:15.5px;margin-bottom:12px;text-align:center}
+.ad-leg small{display:block;font-weight:500;font-size:13.5px;color:var(--mut);margin-top:2px}
 
 /* GARANTIA */
 .garantia{display:flex;gap:14px;align-items:center;text-align:left;margin-top:20px;padding:14px 16px;border:1px dashed var(--roxo);border-radius:16px;background:#faf5fe}
@@ -296,6 +320,7 @@ details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
   .autor .img{max-width:360px;margin:0 auto}
   .quem .foto-apoio,.foto-ketlin{max-width:360px;margin:0 auto}
   .hero-comparativo{max-width:560px}
+  .ad-par{grid-template-columns:1fr;gap:10px}
 }
 @media (max-width:520px){
   section{padding:46px 0}
@@ -313,6 +338,10 @@ details p{padding:0 0 18px;color:var(--mut);line-height:1.65}
   .lista-check li{font-size:14.5px;padding:12px 14px}
   .btn{font-size:16.5px;padding:18px 18px}
   .recap .l{padding:13px 16px;font-size:14.5px}
+  .autoridade{font-size:12.5px;padding:6px 14px 6px 6px;gap:10px;border-radius:22px}
+  .autoridade img{width:38px;height:38px}
+  .demo .tela-demo{border-width:4px;border-radius:14px}
+  .demo .passinhos{flex-direction:column;align-items:center}
 }
 </style>
 <!-- Meta Pixel -->
@@ -334,6 +363,7 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
     <div>
       <h1 class="h1">Copie e cole minhas <mark>10 páginas profissionais</mark> e deixe a IA personalizar tudo com a sua marca em minutos</h1>
       <p class="sub">Mesmo que você não saiba nada de design ou programação.</p>
+      <p class="autoridade"><img src="/imagens/avatar-ketlin.webp" alt="Ketlin Espinoza" width="96" height="96"><span>Criado por <b>Ketlin Espinoza</b>, web designer há 10 anos que faz páginas para gestores de tráfego, agências e empresas.</span></p>
       <div class="selos">
         <span>Pronta em minutos</span>
         <span>Qualquer IA</span>
@@ -351,6 +381,25 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
   </div>
 </header>
 
+<!-- 2b. DEMO: trecho da videoaula em loop (funciona como GIF, mas bem mais leve) -->
+<section class="escuro demo" id="demo">
+  <div class="w c">
+    <h2 class="h2 estreito">Veja a IA transformando uma <mark>página pronta</mark> em uma página com a cara da marca</h2>
+    <p class="sub estreito">Trecho real da videoaula: template + Prompt Mestre + logo e fotos. A IA fez o resto.</p>
+    <div class="tela-demo">
+      <video autoplay muted loop playsinline preload="metadata" poster="/imagens/paginas-prontas/demo-capa.webp" width="1080" height="540" aria-label="Demonstração: a IA personalizando uma página pronta">
+        <source src="/imagens/paginas-prontas/demo.webm" type="video/webm">
+        <source src="/imagens/paginas-prontas/demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="passinhos">
+      <span><i>1</i>Envie a página, o prompt e a sua marca</span>
+      <span><i>2</i>A IA personaliza tudo</span>
+      <span><i>3</i>Página pronta em minutos</span>
+    </div>
+  </div>
+</section>
+
 <!-- 3. VITRINE -->
 <section class="branco vitrine-sec">
   <div class="w c">
@@ -364,19 +413,36 @@ document.addEventListener('click',function(e){if(!window.fbq||!e.target.closest)
   </div>
 </section>
 
-<!-- 3b. DEMO EM VÍDEO
-     Fica escondida até existir o arquivo /imagens/paginas-prontas/demo.mp4 (vídeo curto, 15 a 30s, vertical ou horizontal).
-     Opcional: capa em /imagens/paginas-prontas/demo-capa.webp. Basta subir os arquivos que a seção aparece sozinha. -->
-<section class="cinza demo" id="demo" hidden>
+<!-- 3b. ANTES E DEPOIS (mesmo template, antes e depois de passar na IA) -->
+<section class="cinza">
   <div class="w c">
-    <h2 class="h2 estreito">Veja a IA transformando uma <mark>página pronta</mark> na sua marca</h2>
-    <p class="sub estreito">Template + Prompt Mestre + seu logo. Em poucos minutos a página está com a sua cara.</p>
-    <video src="/imagens/paginas-prontas/demo.mp4" poster="/imagens/paginas-prontas/demo-capa.webp" controls muted playsinline preload="metadata" onloadedmetadata="this.closest('section').hidden=false"></video>
+    <h2 class="h2 estreito">O <mark>mesmo template</mark>, antes e depois de passar na IA</h2>
+    <p class="sub estreito">Você recebe a página pronta com espaços para a sua marca. A IA coloca logo, cores, fotos e textos no lugar certo.</p>
+    <div class="ad-lista">
+      <div>
+        <p class="ad-leg">Página de Captura para um escritório de advocacia<small>Personalizada no Claude</small></p>
+        <div class="ad-par">
+          <figure class="antes"><img loading="lazy" src="/imagens/paginas-prontas/ad-captura-antes.webp" alt="Template da Página de Captura antes da personalização, com espaços para logo e foto" width="640" height="290"><figcaption>Antes: o template</figcaption></figure>
+          <figure class="depois"><img loading="lazy" src="/imagens/paginas-prontas/ad-captura-depois.webp" alt="A mesma Página de Captura depois da IA, com logo, cores, foto e textos de um escritório de advocacia" width="1200" height="542"><figcaption>Depois: com a marca</figcaption></figure>
+        </div>
+      </div>
+      <div>
+        <p class="ad-leg">Página de Vendas para um treinamento<small>Personalizada no ChatGPT</small></p>
+        <div class="ad-par">
+          <figure class="antes"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-antes.webp" alt="Template da Página de Vendas antes da personalização" width="640" height="290"><figcaption>Antes: o template</figcaption></figure>
+          <figure class="depois"><img loading="lazy" src="/imagens/paginas-prontas/ad-vendas-depois.webp" alt="A mesma Página de Vendas depois da IA, com nova identidade visual, foto e textos" width="1200" height="542"><figcaption>Depois: com a marca</figcaption></figure>
+        </div>
+      </div>
+    </div>
+    <p class="nota">Exemplos reais feitos na videoaula, com uma marca fictícia criada para a demonstração.</p>
+    <div class="cta-meio">
+      <a href="https://pay.kiwify.com.br/CixApVg" class="btn">Quero minhas páginas</a>
+    </div>
   </div>
 </section>
 
 <!-- 4. DOR -->
-<section class="cinza">
+<section class="branco">
   <div class="w c">
     <p class="kicker">Eu sei...</p>
     <h2 class="h2 estreito">Você precisa de uma página para vender, captar clientes ou subir uma campanha, mas <mark>sempre trava</mark> na hora de fazer, não é mesmo?</h2>
